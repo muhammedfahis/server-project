@@ -1,0 +1,217 @@
+{{#if isLogged}}
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+     <form class="form-inline my-2 my-lg-0">
+       
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout" style="color: black;">logout</a></button>
+    </form>
+  </div>
+</nav>
+
+{{else}}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <a  class="nav-link nav-item active " id="login-tag" href="/users/login">login<span class="sr-only">(current)</span></a>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup" style="color: black;">SignUp</a></button>
+    </form>
+  </div>
+</nav>
+
+{{/if}}
+
+<div class="container mt-5 mb-5">
+	<div class="row">
+		{{#each data}}
+		<h4 style="margin-left: 18%;">{{this.discription}}</h4>
+		{{/each}}
+
+	</div>
+
+</div>
+
+
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-6 mt-5">
+			<div class="card" style="width: 38rem;">
+				{{#each data}}
+				<img class="card-img-top img-fluid" src="/images/{{this.img}}" width="100%" alt="Card image cap">
+				{{/each}}
+
+			</div>
+
+		</div>
+
+
+		<div class="col-md-6 mt-5">
+			{{#each data}}
+			<h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
+			<p style="margin-left: 25%;"> pledged of US{{this.target}} goal</p>
+			<h4 class=" mt-5 " style="margin-left: 27%;"><strong>0</strong></h4>
+			<p style="margin-left: 25%;"> backers</p>
+			<h4 class=" mt-5 " style="margin-left: 27%;"><strong>0</strong></h4>
+			<p style="margin-left: 25%;"> days to go</p>
+			<button type="button" style="margin-left: 25%;" class="btn btn-success">pre-order</button>
+			{{/each}}
+
+
+
+
+		</div>
+	</div>
+</div>
+<div class="container mt-3">
+	<div class="row bg-secondary">
+		<nav class="navbar navbar-expand-lg navbar-light ">
+			{{#each data}}
+			<a class="nav-item nav-link" style="color: black;" href="/users/items/{{this._id}}">Discription</a>
+			<a class="nav-item nav-link" style="color:black;" href="/users/comments/{{this._id}}">Comments</a>
+			<a class="nav-item nav-link" style="color: black;" href="#"></a>
+			{{/each}}
+
+		</nav>
+
+	</div>
+
+</div>
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-md-4">
+			{{#each data}}
+
+			<table class="table " style="">
+				<thead>
+					<tr>
+						<th scope="col">Comments</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{{#each comments}}
+					<tr>
+
+						<td>{{this}}</td>
+						
+
+					</tr>
+					{{/each}}
+					<tr>
+
+					</tr>
+				</tbody>
+			</table>
+
+
+
+
+
+
+
+			{{/each}}
+		</div>
+
+		<div class="col-md-4">
+
+			{{#each data}}
+			<table class="table" style="">
+				<thead>
+					<tr>
+						<th class="col">Username</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					{{#each username}}
+					<tr>
+						<td>{{this}}</td>
+					</tr>
+					{{/each}}
+
+				</tbody>
+				{{/each}}
+			</table>
+
+
+		</div>
+
+		<div class="col-md-4">
+			{{#each data}}
+
+			<table class="table " style="">
+				<thead>
+					<tr>
+						<th scope="col">Date</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{{#each Date}}
+					<tr>
+
+						<td>{{this}}</td>
+
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+			{{/each}}
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+			<form method="POST" action="/users/comments">
+
+				<div class="form-group">
+
+					<div class="form-group">
+						<label for="exampleInputEmail1">Username</label>
+						<input type="text" class="form-control" name="username" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="Enter username">
+
+					</div>
+					<label for="comment">Comment:</label>
+					<textarea class="form-control" name="comment" rows="5" id="comment"></textarea>
+					{{#each data}}
+					<input type="hidden" value="{{this._id}}" name="_id">
+					{{/each}}
+				</div>
+				<button type="submit">comment</button>
+			</form>
+		</div>
+	</div>
+</div>

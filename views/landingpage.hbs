@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+{{#if isLogged }}
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="/users/landingpage">Company Name</a><button
+            data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link " href="/users/rules">start project</a></li>
+
+                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown"
+                        aria-expanded="false" href="#">users</a>
+                    <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">My
+                            project</a><a class="dropdown-item" role="presentation" href="#">My orders</a></div>
+                </li>
+                <li class="nav-item" role="presentation"></li>
+            </ul>
+            <span class="navbar-text actions">
+
+                <a class=" btn-light action-button" role="button" href="#">{{email}}</a>
+               
+                <a class="btn btn-light action-button" role="button" href="/users/logout">logout</a>
+
+
+
+            </span>
+
+        </div>
+    </div>
+</nav>
+{{else}}
+
+
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="/users/landingpage">Company Name</a><button
+            data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link " href="/users/rules">start project</a></li>
+
+                <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown"
+                        aria-expanded="false" href="#">users</a>
+                    <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">My
+                            project</a><a class="dropdown-item" role="presentation" href="#">My orders</a></div>
+                </li>
+            </ul><span class="navbar-text actions">
+
+                <a class="login" href="/users/login">login</a>
+                <a class="btn btn-light action-button" role="button" href="/users/signup">SignUp</a></span>
+        </div>
+    </div>
+
+</nav>
+{{/if}}
+
+
+
+<div>
+
+    <body class="bg-danger">
+
+
+        <div class="container ">
+            <div class="row " style="margin-left: 15%; ">
+                <nav class="navbar navbar-expand-lg navbar-light ">
+
+                    <div class="collapse navbar-collapse" id="navbarNav" style="">
+                        <ul class="navbar-nav" style="padding-left: 32%;">
+                            <li class="nav-item active">
+                                <a class="nav-link ml-5" href="/users/art" style="color: white;">Art <span
+                                        class="sr-only">(current)</span></a>
+
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link ml-5" href="/users/tech" style="color: white;">Tech <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link ml-5" href="/users/fashion" style="color: white;">Fashion <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link ml-5" href="/users/craft" style="color: white;">Craft <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+</div>
+<div>
+    <div class="container bg-light">
+        <div class="row" style="margin-left: 10rem;">
+            <div class="col-md-4">
+                <!-- Section: Condition -->
+                <section filter="condition" class="mb-4">
+                    <h6 class="font-weight-bold mb-3">Condition</h6>
+                    <form action="/users/filter" method="post">
+                        <div class="form-check pl-0 mb-3">
+                            <input type="radio" name="conditions" value="new"
+                                class="filter-option form-check-input filled-in" condition="new" id="new" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="new">Old</label>
+                        </div>
+                        <div class="form-check pl-0 mb-3">
+                            <input condition="used" name="conditions" value="old" type="radio"
+                                class="filter-option form-check-input filled-in" id="used" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="used">New</label>
+                        </div>
+                        <div class="form-check pl-0 mb-3">
+                            <input condition="collectible" name="conditions" value="high_price" type="radio"
+                                class="filter-option form-check-input filled-in" id="collectible" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="collectible">Highest price</label>
+                        </div>
+                        <div class="form-check pl-0 mb-3 pb-1">
+                            <input condition="renewed" name="conditions" value="low_price" type="radio"
+                                class="filter-option form-check-input filled-in" id="renewed" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="renewed">Lowest
+                                price</label>
+                        </div>
+                </section>
+                <!-- Section: Condition -->
+            </div>
+
+
+            <div class="col-md-4">
+                <!-- Section: Price -->
+                <section class="mb-4" filter="price">
+                    <h6 class="font-weight-bold mb-3">Price</h6>
+
+                    <div class="form-check pl-0 mb-3">
+                        <input price="0-2500" type="radio" value="under25" class="filter-option form-check-input"
+                            id="under25" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
+                            2500</label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input price="2500-5000" type="radio" value="25to50" class="filter-option form-check-input"
+                            id="2550" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="2550">2500 to
+                            5000</label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input price="50000-100000" type="radio" value="50to100" class="filter-option form-check-input"
+                            id="50100" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="50100">5000 to
+                            10000</label>
+                    </div>
+
+                    <div class="form-check pl-0 mb-3">
+                        <input price="100000-*" type="radio" value="100*" class="filter-option form-check-input"
+                            id="200above" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="200above">10000 &
+                            Above</label>
+                    </div>
+                </section>
+                <!-- Section: Price -->
+            </div>
+
+            <div class="col-md-4">
+                <!-- Section: Price -->
+                <section class="mb-4" filter="price">
+                    <h6 class="font-weight-bold mb-3">target</h6>
+
+                    <div class="form-check pl-0 mb-3">
+                        <input price="0-25" type="radio" value="0-25" class="filter-option form-check-input"
+                            id="under25" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
+                            250000</label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input price="25-50" type="radio" value="25-50" class="filter-option form-check-input" id="2550"
+                            name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="2550">250000 to
+                            500000</label>
+                    </div>
+                    <div class="form-check pl-0 mb-3">
+                        <input price="50-100" type="radio" value="50-100" class="filter-option form-check-input"
+                            id="50100" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="50100">500000 to
+                            1000000</label>
+                    </div>
+
+                    <div class="form-check pl-0 mb-3">
+                        <input price="200-*" type="radio" value="100above" class="filter-option form-check-input"
+                            id="200above" name="conditions" />
+                        <label class="form-check-label small text-uppercase card-link-secondary" for="200above">1000000
+                            & Above</label>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-secondary" style="margin-left: 27%;width: 50%;">Filter</button>
+        </form>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<div class="container ">
+
+    <div class="row">
+        {{#each data}}
+
+        <div class=" col-md-4 ">
+            <a href="/users/items/{{this._id}}">
+                <div class="card" style="width: 18rem;height: 20rem;">
+                    <img class="card-img-top" src="/images/{{this.img}}" class="img-fluid" width="75px" height="200px"
+                        alt="Card image cap">
+
+
+                    <div class="card-body">
+                        <p class="card-title">{{this.discription}}</p>
+
+                        <a href="/users/items/{{this._id}}" class="btn btn-primary">${{this.price}}</a>
+                        <p class="mt-2">0 target achieved</p>
+
+
+            </a>
+
+        </div>
+    </div>
+</div>
+
+{{/each}}
+
+
+
+</div>
+</div>
+
+
+<div class="footer-dark">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Web design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Hosting</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Company</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 item text">
+                    <h3>Company Name</h3>
+                    <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut
+                        vehicula
+                        rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar
+                        dictum
+                        vel in justo.</p>
+                </div>
+                <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                            class="icon ion-social-twitter"></i></a><a href="#"><i
+                            class="icon ion-social-snapchat"></i></a><a href="#"><i
+                            class="icon ion-social-instagram"></i></a></div>
+            </div>
+            <p class="copyright">Company Name © 2017</p>
+        </div>
+    </footer>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

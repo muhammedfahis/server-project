@@ -1,0 +1,68 @@
+{{#if isLogged}}
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+     <form class="form-inline my-2 my-lg-0" >
+       
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout" style="color: black;">logout</a></button>
+    </form>
+  </div>
+</nav>
+
+{{else}}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <a  class="nav-link nav-item active " id="login-tag" href="/users/login">login<span class="sr-only">(current)</span></a>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup" style="color: black;">SignUp</a></button>
+    </form>
+  </div>
+</nav>
+
+{{/if}}
+
+<div class="row">
+    <div class="containter">
+      <svg class="mt-5 heart_symbol"  width="7em" height="7em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg>
+
+<h3 class="rules_head mt-5">Take a moment to review our rules</h3>
+<h6 class="rules_head ">Here are five rules every Kickstarter project must follow.</h6>
+ <p class="rules mt-5">Projects must create something to share with others.</p>  
+ <p class="rules mt-5">Projects must be honest and clearly presented.</p>  
+ <p class="rules mt-5">Projects can't fundraise for charity.</p>  
+ <p class="rules mt-5">Projects can't offer equity.</p>  
+ <p class="rules mt-5">Projects can't involve prohibited items.</p>  
+
+
+ <button type="button" id="gotit" class="btn btn-success mt-5"><a href="/users/start_project" style="color: white;">Got it</a></button>
+
+    </div>
+</div>

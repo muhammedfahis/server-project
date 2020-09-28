@@ -1,0 +1,33 @@
+<body class="bg-dark">
+
+
+
+    <div class="alert alert-primary" role="alert">
+        {{err}}
+    </div>
+
+    <div class="container ">
+        <div class="col-md-12 " style="margin-left: 36%;margin-top: 15%;">
+            <form action="/users/verify_otp" method="POST">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">OTP verification</label>
+                            <input type="number" name="otp" class="form-control form-control-sm" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">verify</button>
+
+                    </div>
+
+                </div>
+                <a href="/users/resend_otp">resend otp</a>
+            </form>
+            
+
+        </div>
+    </div>
+
+
+</body>

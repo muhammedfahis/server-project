@@ -1,0 +1,29 @@
+a{
+    color: black;
+}
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+  
+  a {
+    color: black;
+  }
+  
+  #login-tag{
+    color: black;
+  }
+
+  .heart_symbol{
+      margin-left: 35rem;
+
+  }
+  .rules_head{
+      margin-left: 25rem;
+  }
+  .rules{
+    margin-left: 25rem;
+  }
+  #gotit{
+      margin-left: 70%;
+  }

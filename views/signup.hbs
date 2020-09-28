@@ -1,0 +1,86 @@
+{{#if isLogged}}
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+     <form class="form-inline my-2 my-lg-0" method="POST" action="/users/logout">
+       
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="" style="color: black;">logout</a></button>
+    </form>
+  </div>
+</nav>
+
+{{else}}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <a  class="nav-link nav-item active " id="login-tag" href="/users/login">login<span class="sr-only">(current)</span></a>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup" style="color: black;">SignUp</a></button>
+    </form>
+  </div>
+</nav>
+
+{{/if}}
+
+
+<form method="POST" action="/users/signup" class="mt-5 ">
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" value="{{this.name}}" name="name" id="Name" placeholder="Name" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputPassword3" value="{{this.email}}" name="email" placeholder="Email" required>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="txtPassword" value="{{this.password}}" name="password" placeholder="Password" required>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="txtConfirmPassword" name="confirmPassword" placeholder="confirm password" required>
+    </div>
+  </div>
+  
+ 
+  <div class="form-group row">
+    <div class="col-md-12">
+      <button type="submit" id="#btnSubmit" class="btn btn-primary mt-5" style="margin-left: 50%;">Sign in</button>
+    </div>
+  </div>
+</form>
+
+
