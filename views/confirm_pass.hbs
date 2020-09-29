@@ -1,0 +1,27 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="alert alert-primary" role="alert">
+            {{this.msg}}
+        </div>
+        <div class="fadeIn first">
+            <h4>confirm password</h4>
+        </div>
+
+        <!-- Login Form -->
+        <form method="POST" action="/users/confirm_password">
+            <input type="email" id="login" class="fadeIn second" name="email" placeholder="email"
+                value="{{this.email}}">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password"
+                value="{{this.password}}">
+            <input type="text" id="password" class="fadeIn third" name="confirmpassword" placeholder="Confirm password">
+            <input type="submit" class="fadeIn fourth" value="save">
+        </form>
+
+        <!-- Remind Passowrd -->
+
+
+    </div>
+</div>

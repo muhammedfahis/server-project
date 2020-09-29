@@ -11,7 +11,7 @@ const path = require('path');
 const progress = require('progress-stream');
 const axios = require('axios');
 const FormData = require('form-data');
-const { response } = require('express');
+// const { response } = require('express');
 
 
 let otpId;
@@ -49,6 +49,9 @@ router.use(session({
   }
 }));
 
+router.use("/verify_otp", session({
+
+}))
 
 const userLoginChecker = (req, res, next) => {
   if (!req.session.email) {
@@ -68,7 +71,7 @@ const DirectToDashboard = (req, res, next) => {
 
 //get routes
 //user
-router.get('/signup', (req, res) => {
+router.get('/signup',DirectToDashboard, (req, res) => {
   res.render('signup', { style: 'signup.css' });
 });
 
@@ -76,9 +79,14 @@ router.get('/login', DirectToDashboard, (req, res) => {
   res.render('login', { style: 'login.css' });
 });
 
-router.get('/forgotten', (req, res) => {
+router.get('/verify_mobile', (req, res) => {
   res.render('forgotten', { style: 'forgotten.css' });
 });
+
+router.get('/confirm_password',(req,res)=>{
+  res.render('confirm_pass',{style:'confirm_pass.css'});
+  
+})
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
@@ -271,16 +279,27 @@ router.post('/login', (req, res) => {
   })
 });
 
+//  forgot password
 
-// axios ...................................................................
-
-router.post('/forgotten', (req, res) => {
+router.post('/confirm_password',(req,res)=>{
   const { email, password, confirmpassword } = req.body;
 
   if (password !== confirmpassword) {
     console.log('Enter same password');
-    res.render('forgotten', { msg: 'wrong password', email: email, password: password });
+    res.render('confirm_pass', { style :'confirm_pass.css',msg: 'wrong password', email: email, password: password });
   } else {
+    User.updateOne({ email: email }, { $set: { password: password, number: req.body.phone } }, (err) => {
+      if (err) throw err;
+    });
+  }
+  res.redirect('/users/login');
+})
+
+
+// axios ...................................................................
+
+router.post('/verify_mobile', (req, res) => {
+ 
 
 
     let number = req.body.phone;
@@ -311,11 +330,9 @@ router.post('/forgotten', (req, res) => {
         console.log(error);
       });
 
-    User.updateOne({ email: email }, { $set: { password: password, number: req.body.phone } }, (err) => {
-      if (err) throw err;
-    });
+    
     res.redirect('/users/verify_otp');
-  }
+  
 });
 
 
@@ -338,7 +355,8 @@ router.post('/verify_otp', (req, res) => {
   axios(config)
     .then(function (response) {
       if (response.data.status === 'success') {
-        res.redirect('/users/login');
+        //create cookie
+        res.redirect('/users/confirm_password');
       } else {
         res.render('otp_verification', { err: "invalid otp" });
       }

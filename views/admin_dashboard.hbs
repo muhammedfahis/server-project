@@ -50,7 +50,7 @@
       <th >{{this.discription}}</th>
       <td>{{this.price}}</td>
       <td>{{this.target}}</td>
-      <td>{{this.img}}</td>
+      <td><img src="/images/{{this.img}}" alt="" style="width: 3rem;height: 3rem;"></td>
       <td><form action="/edit_project" method="post">
       <input type="hidden" name="id" value="{{this._id}}">
       <button type="submit" class="btn btn-warning">Edit</button>
