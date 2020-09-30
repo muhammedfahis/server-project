@@ -31,8 +31,9 @@
             <span class="navbar-text actions">
 
                 <a class=" btn-light action-button" role="button" href="#">{{email}}</a>
-               
+
                 <a class="btn btn-light action-button" role="button" href="/users/logout">logout</a>
+                <a class="btn btn-light action-button" id="popup-button" role="button" href="#">filter</a></span>
 
 
 
@@ -60,7 +61,8 @@
             </ul><span class="navbar-text actions">
 
                 <a class="login" href="/users/login">login</a>
-                <a class="btn btn-light action-button" role="button" href="/users/signup">SignUp</a></span>
+                <a class="login" href="/users/signup">Signup</a>
+                <a class="btn btn-light action-button" id="popup-button" role="button" href="#">filter</a></span>
         </div>
     </div>
 
@@ -107,114 +109,120 @@
         </div>
 </div>
 <div>
-    <div class="container bg-light">
+    <div class="container bg-light popup ">
         <div class="row" style="margin-left: 10rem;">
             <div class="col-md-4">
-                <!-- Section: Condition -->
-                <section filter="condition" class="mb-4">
-                    <h6 class="font-weight-bold mb-3">Condition</h6>
-                    <form action="/users/filter" method="post">
+                
+                   
+                    <!-- Section: Condition -->
+                    <section filter="condition" class="mb-4">
+                        <h6 class="font-weight-bold mb-3">Condition</h6>
+                        <form action="/users/filter" method="post">
+                            <div class="form-check pl-0 mb-3">
+                                <input type="radio" name="conditions" value="new"
+                                    class="filter-option form-check-input filled-in" condition="new" id="new" />
+                                <label class="form-check-label small text-uppercase card-link-secondary"
+                                    for="new">Old</label>
+                            </div>
+                            <div class="form-check pl-0 mb-3">
+                                <input condition="used" name="conditions" value="old" type="radio"
+                                    class="filter-option form-check-input filled-in" id="used" />
+                                <label class="form-check-label small text-uppercase card-link-secondary"
+                                    for="used">New</label>
+                            </div>
+                            <div class="form-check pl-0 mb-3">
+                                <input condition="collectible" name="conditions" value="high_price" type="radio"
+                                    class="filter-option form-check-input filled-in" id="collectible" />
+                                <label class="form-check-label small text-uppercase card-link-secondary"
+                                    for="collectible">Highest price</label>
+                            </div>
+                            <div class="form-check pl-0 mb-3 pb-1">
+                                <input condition="renewed" name="conditions" value="low_price" type="radio"
+                                    class="filter-option form-check-input filled-in" id="renewed" />
+                                <label class="form-check-label small text-uppercase card-link-secondary"
+                                    for="renewed">Lowest
+                                    price</label>
+                            </div>
+                    </section>
+                    <!-- Section: Condition -->
+                </div>
+
+
+                <div class="col-md-4">
+                    <!-- Section: Price -->
+                    <section class="mb-4" filter="price">
+                        <h6 class="font-weight-bold mb-3">Price</h6>
+
                         <div class="form-check pl-0 mb-3">
-                            <input type="radio" name="conditions" value="new"
-                                class="filter-option form-check-input filled-in" condition="new" id="new" />
-                            <label class="form-check-label small text-uppercase card-link-secondary"
-                                for="new">Old</label>
+                            <input price="0-2500" type="radio" value="under25" class="filter-option form-check-input"
+                                id="under25" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
+                                2500</label>
                         </div>
                         <div class="form-check pl-0 mb-3">
-                            <input condition="used" name="conditions" value="old" type="radio"
-                                class="filter-option form-check-input filled-in" id="used" />
-                            <label class="form-check-label small text-uppercase card-link-secondary"
-                                for="used">New</label>
+                            <input price="2500-5000" type="radio" value="25to50" class="filter-option form-check-input"
+                                id="2550" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="2550">2500 to
+                                5000</label>
                         </div>
                         <div class="form-check pl-0 mb-3">
-                            <input condition="collectible" name="conditions" value="high_price" type="radio"
-                                class="filter-option form-check-input filled-in" id="collectible" />
-                            <label class="form-check-label small text-uppercase card-link-secondary"
-                                for="collectible">Highest price</label>
+                            <input price="50000-100000" type="radio" value="50to100"
+                                class="filter-option form-check-input" id="50100" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="50100">5000 to
+                                10000</label>
                         </div>
-                        <div class="form-check pl-0 mb-3 pb-1">
-                            <input condition="renewed" name="conditions" value="low_price" type="radio"
-                                class="filter-option form-check-input filled-in" id="renewed" />
+
+                        <div class="form-check pl-0 mb-3">
+                            <input price="100000-*" type="radio" value="100*" class="filter-option form-check-input"
+                                id="200above" name="conditions" />
                             <label class="form-check-label small text-uppercase card-link-secondary"
-                                for="renewed">Lowest
-                                price</label>
+                                for="200above">10000 &
+                                Above</label>
                         </div>
-                </section>
-                <!-- Section: Condition -->
+                    </section>
+                    <!-- Section: Price -->
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Section: Price -->
+                    <section class="mb-4" filter="price">
+                        <h6 class="font-weight-bold mb-3">target</h6>
+
+                        <div class="form-check pl-0 mb-3">
+                            <input price="0-25" type="radio" value="0-25" class="filter-option form-check-input"
+                                id="under25" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
+                                250000</label>
+                        </div>
+                        <div class="form-check pl-0 mb-3">
+                            <input price="25-50" type="radio" value="25-50" class="filter-option form-check-input"
+                                id="2550" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="2550">250000
+                                to
+                                500000</label>
+                        </div>
+                        <div class="form-check pl-0 mb-3">
+                            <input price="50-100" type="radio" value="50-100" class="filter-option form-check-input"
+                                id="50100" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary" for="50100">500000
+                                to
+                                1000000</label>
+                        </div>
+
+                        <div class="form-check pl-0 mb-3">
+                            <input price="200-*" type="radio" value="100above" class="filter-option form-check-input"
+                                id="200above" name="conditions" />
+                            <label class="form-check-label small text-uppercase card-link-secondary"
+                                for="200above">1000000
+                                & Above</label>
+                        </div>
+                    </section>
+                </div>
             </div>
-
-
-            <div class="col-md-4">
-                <!-- Section: Price -->
-                <section class="mb-4" filter="price">
-                    <h6 class="font-weight-bold mb-3">Price</h6>
-
-                    <div class="form-check pl-0 mb-3">
-                        <input price="0-2500" type="radio" value="under25" class="filter-option form-check-input"
-                            id="under25" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
-                            2500</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input price="2500-5000" type="radio" value="25to50" class="filter-option form-check-input"
-                            id="2550" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="2550">2500 to
-                            5000</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input price="50000-100000" type="radio" value="50to100" class="filter-option form-check-input"
-                            id="50100" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="50100">5000 to
-                            10000</label>
-                    </div>
-
-                    <div class="form-check pl-0 mb-3">
-                        <input price="100000-*" type="radio" value="100*" class="filter-option form-check-input"
-                            id="200above" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="200above">10000 &
-                            Above</label>
-                    </div>
-                </section>
-                <!-- Section: Price -->
-            </div>
-
-            <div class="col-md-4">
-                <!-- Section: Price -->
-                <section class="mb-4" filter="price">
-                    <h6 class="font-weight-bold mb-3">target</h6>
-
-                    <div class="form-check pl-0 mb-3">
-                        <input price="0-25" type="radio" value="0-25" class="filter-option form-check-input"
-                            id="under25" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="under25">Under
-                            250000</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input price="25-50" type="radio" value="25-50" class="filter-option form-check-input" id="2550"
-                            name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="2550">250000 to
-                            500000</label>
-                    </div>
-                    <div class="form-check pl-0 mb-3">
-                        <input price="50-100" type="radio" value="50-100" class="filter-option form-check-input"
-                            id="50100" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="50100">500000 to
-                            1000000</label>
-                    </div>
-
-                    <div class="form-check pl-0 mb-3">
-                        <input price="200-*" type="radio" value="100above" class="filter-option form-check-input"
-                            id="200above" name="conditions" />
-                        <label class="form-check-label small text-uppercase card-link-secondary" for="200above">1000000
-                            & Above</label>
-                    </div>
-                </section>
-            </div>
+            <button type="submit" class="btn btn-secondary" style="margin-left: 27%;width: 50%;">Filter</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-secondary" style="margin-left: 27%;width: 50%;">Filter</button>
-        </form>
-    </div>
-
+    
 
 
 </div>
@@ -239,7 +247,7 @@
                         <p class="card-title">{{this.discription}}</p>
 
                         <a href="/users/items/{{this._id}}" class="btn btn-primary">${{this.price}}</a>
-                       
+
 
 
             </a>
@@ -295,6 +303,12 @@
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+document.getElementById("popup-button").addEventListener("click",function(){
+    document.querySelector(".popup").style.display = "block"; 
+})
+</script>
 </body>
 
 </html>

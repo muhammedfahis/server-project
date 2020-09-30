@@ -330,7 +330,12 @@
     font-size: .8rem;
     padding-left: 1rem;
   }
-  
+  .popup{
+    
+    display: none;
+    }
+ 
+
   
   
   
