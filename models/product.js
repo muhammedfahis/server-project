@@ -15,7 +15,8 @@ const productSchema = new mongoose.Schema({
     details: String,
     comments: Array,
     username: Array,
-    Date: Array
+    Date: Array,
+    id:String
 
 
 

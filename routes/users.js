@@ -237,16 +237,42 @@ router.get('/comments/:id', (req, res) => {
   })
 });
 
+//  opt verification
 router.get('/verify_otp', (req, res) => {
   res.render('otp_verification', { style: 'otpverify.css' });
 });
 
+//  login with otp
 router.get('/otp_login', (req, res) => {
   res.render('otp_login', { style: 'otp_login.css' });
 })
+
+//  verify the otp when login
 router.get('/login_verify', (req, res) => {
   res.render('login_otpverify', { style: 'otpverify.css' });
 })
+
+//  render the myproject page
+router.get('/myproject', (req, res) => {
+
+  Product.find({ id: req.session.email }).exec((err, data) => {
+    if(err)throw err;
+    res.render('myproject', { data: data, style: 'myproject.css' });
+  })
+});
+// view the item from the product page
+
+router.get('/item/:id', (req, res) => {
+  const id = req.params.id;
+  Product.find({ _id: id }).exec((err, data) => {
+    if (err) throw err;
+
+    res.render('myprojectview', { data: data, style: 'product_page.css' });
+    });
+  
+});
+
+
 
 
 
@@ -470,9 +496,9 @@ router.post('/login_verify', (req, res) => {
   axios(config)
     .then(function (response) {
       if (response.data.status === 'success') {
-        
+
         req.session.email = req.body.phone;
-        
+
 
         Product.find({}).exec((err, data) => {
           if (err) throw err;
@@ -553,7 +579,8 @@ router.post('/project_upload', (req, res) => {
         target: req.body.target,
         details: req.body.details,
         img: filename,
-        Date: Date.now()
+        Date: Date.now(),
+        id: req.session.email
 
       });
       newProduct.save()
@@ -719,34 +746,44 @@ router.post('/filter', (req, res) => {
 
 });
 
+router.post('/dlt_project', (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+ 
+  Product.findOneAndDelete({ _id:id}, (err) => {
+    if (err) throw err;
+    res.redirect('/users/myproject');
+  });
+  
+});
 
+router.post('/edt_project',(req,res)=>{
+  Product.findOne({_id:req.body.id}).exec((err,data)=>{
+    if(err) throw err;
+    res.render('edt_project',{data:data,style:'signup.css'});
+  })
+  });
 
+  router.post('/edt_upload',(req,res)=>{
+    upload(req, res, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(req.file.path);
+  
+        var filename = req.file.filename
+      }
+      Product.updateOne({_id:req.body.id},{$set:{
+        discription:req.body.discription,
+        price:req.body.price,
+        target:req.body.target,
+        details:req.body.details,
+        img:filename
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      }},(err)=> {if (err) throw err});
+  })
+  res.redirect('/users/myproject')
+})
 
 
 
