@@ -1,7 +1,8 @@
 {{#if isLogged}}
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="/users/landingpage">Company</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -10,13 +11,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
       </li>
-     
-     
-      
+
+
+
     </ul>
-     <form class="form-inline my-2 my-lg-0">
-       
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout" style="color: black;">logout</a></button>
+    <form class="form-inline my-2 my-lg-0">
+
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout"
+          style="color: black;">logout</a></button>
     </form>
 
 </nav>
@@ -25,7 +27,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="/users/landingpage">Company</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -34,13 +37,15 @@
       <li class="nav-item active">
         <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
       </li>
-     
-     
-      
+
+
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
-        <a  class="nav-link nav-item active " id="login-tag" href="/users/login">login<span class="sr-only">(current)</span></a>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup" style="color: black;">SignUp</a></button>
+      <a class="nav-link nav-item active " id="login-tag" href="/users/login">login<span
+          class="sr-only">(current)</span></a>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup"
+          style="color: black;">SignUp</a></button>
     </form>
   </div>
 </nav>
@@ -48,70 +53,79 @@
 {{/if}}
 
 <div class="container mt-5 mb-5">
-	<div class="row">
-		{{#each data}}
-		<h4 style="margin-left: 18%;">{{this.discription}}</h4>
-		{{/each}}
+  <div class="row">
+    {{#each data}}
+    <h4 style="margin-left: 18%;">{{this.discription}}</h4>
+    {{/each}}
 
-	</div>
+  </div>
 
 </div>
 
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6 mt-5">
-            <div class="card" style="width: 38rem;">
-               {{#each data}}
-  <img class="card-img-top img-fluid" src="/images/{{this.img}}" width="100%" alt="Card image cap">
- <iframe src="/images/{{this.video}}" frameborder="0"></iframe>
- 
-                {{/each}}
-  
-</div>
-            
-        </div>
+  <div class="row">
+    <div class="col-md-6 mt-5">
+      <div class="card" style="width: 38rem;">
+        {{#each data}}
+        <img class="card-img-top img-fluid" src="/images/{{this.img}}" width="100%" alt="Card image cap">
 
+        {{/each}}
 
-		<div class="col-md-6 mt-5">
-			{{#each data}}
-			<h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
-			<p style="margin-left: 25%;"> pledged of US{{this.target}} goal</p>
-			<h4 class=" mt-5 " style="margin-left: 27%;"><strong>
-				0</strong></h4>
-			<p style="margin-left: 25%;"> backers</p>
-			<h4 class=" mt-5 " style="margin-left: 27%;"><strong>0</strong></h4>
-			<p style="margin-left: 25%;"> days to go</p>
-			<button type="button" style="margin-left: 25%;" class="btn btn-success">pre-order</button>
-			{{/each}}
+      </div>
 
-
-
-
-		</div>
     </div>
+
+
+    <div class="col-md-6 mt-5">
+      {{#each data}}
+      <h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
+      <p style="margin-left: 25%;"> pledged of US{{this.target}} goal</p>
+      <h4 class=" mt-5 " style="margin-left: 27%;"><strong>
+          0</strong></h4>
+      <p style="margin-left: 25%;"> backers</p>
+      <h4 class=" mt-5 " style="margin-left: 27%;"><strong>0</strong></h4>
+      <p style="margin-left: 25%;"> days to go</p>
+      <button type="button" style="margin-left: 25%;" class="btn btn-success">pre-order</button>
+      {{/each}}
+
+
+
+
+    </div>
+  </div>
 </div>
 <div class="container mt-3">
-	<div class="row bg-secondary">
-		<nav class="navbar navbar-expand-lg navbar-light " >
-     {{#each data}}
+  <div class="row bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      {{#each data}}
       <a class="nav-item nav-link" style="color: black;" href="">Discription</a>
       <a class="nav-item nav-link" style="color:black;" href="/users/comments/{{this._id}}">Comments</a>
       <a class="nav-item nav-link" style="color: black;" href="#"></a>
-	  {{/each}}
-   
-</nav>
+      {{/each}}
 
-	</div>
+    </nav>
+
+  </div>
 
 </div>
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			{{#each data}}
-		<p>{{this.details}}</p>
-		{{/each}}
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-md-12">
+      {{#each data}}
+      <p>{{this.details}}</p>
+      {{/each}}
+    </div>
+
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="row" style="margin-left: 10%;">
+    <div class="col-md-12">
+      {{#each data}}
+      <iframe src="/images/{{this.video}}" frameborder="0" style="width: 25rem;height:25rem"></iframe>
+      {{/each}}
+    </div>
+  </div>
 </div>
