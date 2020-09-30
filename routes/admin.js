@@ -186,28 +186,5 @@ router.post('/save_edit', (req,res) => {
   })
 });
 
-//  dummy
-
-// router.get('/upload',(req,res)=>{
-//   res.render('dummy');
-// })
-// router.post('/upload',(req,res)=>{
-
-//   upload(req, res, (err) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       // console.log(req.file.path);
-
-//       var filename = req.file.filename
-
-//       const newProduct =new Product({
-//         img:filename
-//       })
-//       newProduct.save()
-      
-//     }
-// })
-// });
 
 module.exports = router;

@@ -14,8 +14,8 @@ const productSchema = new mongoose.Schema({
     country: String,
     details: String,
     comments: Array,
-    username:Array,
-    Date:Date
+    username: Array,
+    Date: Array
 
 
 

@@ -15,6 +15,8 @@ const FormData = require('form-data');
 
 
 let otpId;
+let login_otpId;
+let newUser;
 
 
 
@@ -49,7 +51,15 @@ router.use(session({
   }
 }));
 
-router.use("/verify_otp", session({
+router.use("/login_verify", session({
+  secret: 'ok',
+  name: 'userCookie',
+  saveUninitialized: false,
+  resave: false,
+  cookie: {
+    maxAge: 60 * 1000 * 60 * 60 * 24 * 30
+  }
+
 
 }))
 
@@ -71,7 +81,7 @@ const DirectToDashboard = (req, res, next) => {
 
 //get routes
 //user
-router.get('/signup',DirectToDashboard, (req, res) => {
+router.get('/signup', DirectToDashboard, (req, res) => {
   res.render('signup', { style: 'signup.css' });
 });
 
@@ -83,9 +93,9 @@ router.get('/verify_mobile', (req, res) => {
   res.render('forgotten', { style: 'forgotten.css' });
 });
 
-router.get('/confirm_password',(req,res)=>{
-  res.render('confirm_pass',{style:'confirm_pass.css'});
-  
+router.get('/confirm_password', (req, res) => {
+  res.render('confirm_pass', { style: 'confirm_pass.css' });
+
 })
 
 router.get('/logout', (req, res) => {
@@ -229,6 +239,13 @@ router.get('/comments/:id', (req, res) => {
 
 router.get('/verify_otp', (req, res) => {
   res.render('otp_verification', { style: 'otpverify.css' });
+});
+
+router.get('/otp_login', (req, res) => {
+  res.render('otp_login', { style: 'otp_login.css' });
+})
+router.get('/login_verify', (req, res) => {
+  res.render('login_otpverify', { style: 'otpverify.css' });
 })
 
 
@@ -242,20 +259,52 @@ router.get('/verify_otp', (req, res) => {
 // users
 
 router.post('/signup', (req, res) => {
-  const { name, email, password, confirmPassword } = req.body
+  const { name, email, password, confirmPassword, phone } = req.body
   if (password !== confirmPassword) {
     res.render('signup', { name: name, email: email, password: password });
   } else {
 
-    var newUser = new User({
+    newUser = new User({
       email: email,
       name: name,
-      password: password
+      password: password,
+      number: phone
 
     });
   }
-  newUser.save();
-  res.redirect('/users/login');
+  let number = req.body.phone;
+  req.body.phone = req.body.email;
+
+  var data = new FormData();
+  data.append('mobile', '91' + number);
+  data.append('sender_id', 'SMSINFO');
+  data.append('message', 'Your otp code is {code}');
+  data.append('expiry', '900');
+
+  var config = {
+    method: 'post',
+    url: 'https://d7networks.com/api/verifier/send',
+    headers: {
+      'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
+      ...data.getHeaders()
+    },
+    data: data
+  };
+
+  axios(config)
+    .then(function (response) {
+      otpId = response.data.otp_id;
+      console.log(JSON.stringify(response.data));
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
+  res.redirect('/users/verify_otp');
+
+
 });
 
 
@@ -281,59 +330,25 @@ router.post('/login', (req, res) => {
 
 //  forgot password
 
-router.post('/confirm_password',(req,res)=>{
+router.post('/confirm_password', (req, res) => {
   const { email, password, confirmpassword } = req.body;
 
   if (password !== confirmpassword) {
     console.log('Enter same password');
-    res.render('confirm_pass', { style :'confirm_pass.css',msg: 'wrong password', email: email, password: password });
+    res.render('confirm_pass', { style: 'confirm_pass.css', msg: 'wrong password', email: email, password: password });
   } else {
     User.updateOne({ email: email }, { $set: { password: password, number: req.body.phone } }, (err) => {
       if (err) throw err;
     });
+    res.redirect('/users/login');
   }
-  res.redirect('/users/login');
+
 })
 
 
 // axios ...................................................................
 
-router.post('/verify_mobile', (req, res) => {
- 
 
-
-    let number = req.body.phone;
-
-    var data = new FormData();
-    data.append('mobile', '91' + number);
-    data.append('sender_id', 'SMSINFO');
-    data.append('message', 'Your otp code is {code}');
-    data.append('expiry', '900');
-
-    var config = {
-      method: 'post',
-      url: 'https://d7networks.com/api/verifier/send',
-      headers: {
-        'Authorization': 'Token 50fd440ce0562781027ebfccc0eeb18ae9566f13',
-        ...data.getHeaders()
-      },
-      data: data
-    };
-
-    axios(config)
-      .then(function (response) {
-        otpId = response.data.otp_id;
-        console.log(JSON.stringify(response.data));
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    
-    res.redirect('/users/verify_otp');
-  
-});
 
 
 router.post('/verify_otp', (req, res) => {
@@ -346,7 +361,7 @@ router.post('/verify_otp', (req, res) => {
     method: 'post',
     url: 'https://d7networks.com/api/verifier/verify',
     headers: {
-      'Authorization': 'Token 50fd440ce0562781027ebfccc0eeb18ae9566f13',
+      'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
       ...data.getHeaders()
     },
     data: data
@@ -355,12 +370,11 @@ router.post('/verify_otp', (req, res) => {
   axios(config)
     .then(function (response) {
       if (response.data.status === 'success') {
-        //create cookie
-        res.redirect('/users/confirm_password');
+        newUser.save();
+        res.redirect('/users/login');
       } else {
         res.render('otp_verification', { err: "invalid otp" });
       }
-
       console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
@@ -379,7 +393,7 @@ router.get('/resend_otp', (req, res) => {
     method: 'post',
     url: 'https://d7networks.com/api/verifier/resend',
     headers: {
-      'Authorization': 'Token 50fd440ce0562781027ebfccc0eeb18ae9566f13',
+      'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
       ...data.getHeaders()
     },
     data: data
@@ -395,6 +409,121 @@ router.get('/resend_otp', (req, res) => {
     });
   res.redirect('/users/verify_otp')
 });
+
+
+router.post('/otp_login', (req, res) => {
+  const phone = req.body.phone;
+  User.findOne({ number: req.body.phone }).exec((err, data) => {
+
+    if (data) {
+
+      var data = new FormData();
+      data.append('mobile', '91' + phone);
+      data.append('sender_id', 'SMSINFO');
+      data.append('message', 'Your otp code is {code}');
+      data.append('expiry', '900');
+
+      var config = {
+        method: 'post',
+        url: 'https://d7networks.com/api/verifier/send',
+        headers: {
+          'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
+          ...data.getHeaders()
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(function (response) {
+          login_otpId = response.data.otp_id;
+          console.log(JSON.stringify(response.data));
+          res.render('login_otpverify', { phone: req.body.phone });
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      res.render('otp_login', { msg: 'invalid number', style: 'otp_login.css' });
+    }
+  })
+});
+
+router.post('/login_verify', (req, res) => {
+  let phone = req.body.phone;
+  console.log(phone);
+  var data = new FormData();
+  data.append('otp_id', login_otpId);
+  data.append('otp_code', req.body.otp);
+  console.log(req.body.otp);
+
+  var config = {
+    method: 'post',
+    url: 'https://d7networks.com/api/verifier/verify',
+    headers: {
+      'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
+      ...data.getHeaders()
+    },
+    data: data
+  };
+
+  axios(config)
+    .then(function (response) {
+      if (response.data.status === 'success') {
+        
+        req.session.email = req.body.phone;
+        
+
+        Product.find({}).exec((err, data) => {
+          if (err) throw err;
+          var isLogged;
+          if (req.session.email) {
+            isLogged = true;
+            return res.render('landingpage', { data: data, style: 'landingpage.css', isLogged, email: req.session.email })
+          } else {
+            return res.render('landingpage', { data: data, style: 'landingpage.css' })
+          }
+
+
+        });
+
+      } else {
+        res.render('login_otpverify', { err: "invalid otp" });
+      }
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+
+    });
+});
+
+router.get('/resend_login_otp', (req, res) => {
+  var data = new FormData();
+  data.append('otp_id', login_otpId);
+
+  var config = {
+    method: 'post',
+    url: 'https://d7networks.com/api/verifier/resend',
+    headers: {
+      'Authorization': 'Token 975b3cd4c0a23b133ae2f37c270a1d4fe4125e61',
+      ...data.getHeaders()
+    },
+    data: data
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  res.redirect('/users/verify_otp')
+})
+
+
 
 
 // axios
@@ -581,13 +710,14 @@ router.post('/filter', (req, res) => {
         res.render('landingpage', { data: data, style: 'landingpage.css', isLogged, email: req.session.email })
       } else {
         res.render('landingpage', { data: data, style: 'landingpage.css' })
+
       }
     });
   } else {
     res.redirect('/users/landingpage');
   }
 
-})
+});
 
 
 
