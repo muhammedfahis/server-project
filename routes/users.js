@@ -256,7 +256,7 @@ router.get('/login_verify', (req, res) => {
 router.get('/myproject', (req, res) => {
 
   Product.find({ id: req.session.email }).exec((err, data) => {
-    if(err)throw err;
+    if (err) throw err;
     res.render('myproject', { data: data, style: 'myproject.css' });
   })
 });
@@ -268,8 +268,8 @@ router.get('/item/:id', (req, res) => {
     if (err) throw err;
 
     res.render('myprojectview', { data: data, style: 'product_page.css' });
-    });
-  
+  });
+
 });
 
 
@@ -569,6 +569,7 @@ router.post('/project_upload', (req, res) => {
 
       var filename = req.file.filename
 
+
       const newProduct = new Product({
         category: req.body.category,
         country: req.body.country,
@@ -580,14 +581,35 @@ router.post('/project_upload', (req, res) => {
         details: req.body.details,
         img: filename,
         Date: Date.now(),
-        id: req.session.email
+        id: req.session.email,
+
 
       });
       newProduct.save()
-      res.redirect('/users/landingpage')
+      res.render('videoupload', { name: req.body.discription, style: 'signup.css' });
     }
   });
 });
+
+// video upload
+
+router.post("/upload_video", (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(req.file.path);
+
+      var filename = req.file.filename
+
+
+      Product.updateOne({ discription: req.body.discription }, { $set: { video: filename } }, (err) => {
+        if (err) throw err;
+        res.redirect('/users/landingpage');
+      })
+    }
+  })
+})
 
 // comment page
 
@@ -749,38 +771,40 @@ router.post('/filter', (req, res) => {
 router.post('/dlt_project', (req, res) => {
   const id = req.body.id;
   console.log(id);
- 
-  Product.findOneAndDelete({ _id:id}, (err) => {
+
+  Product.findOneAndDelete({ _id: id }, (err) => {
     if (err) throw err;
     res.redirect('/users/myproject');
   });
-  
+
 });
 
-router.post('/edt_project',(req,res)=>{
-  Product.findOne({_id:req.body.id}).exec((err,data)=>{
-    if(err) throw err;
-    res.render('edt_project',{data:data,style:'signup.css'});
+router.post('/edt_project', (req, res) => {
+  Product.findOne({ _id: req.body.id }).exec((err, data) => {
+    if (err) throw err;
+    res.render('edt_project', { data: data, style: 'signup.css' });
   })
-  });
+});
 
-  router.post('/edt_upload',(req,res)=>{
-    upload(req, res, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(req.file.path);
-  
-        var filename = req.file.filename
+router.post('/edt_upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(req.file.path);
+
+      var filename = req.file.filename
+    }
+    Product.updateOne({ _id: req.body.id }, {
+      $set: {
+        discription: req.body.discription,
+        price: req.body.price,
+        target: req.body.target,
+        details: req.body.details,
+        img: filename
+
       }
-      Product.updateOne({_id:req.body.id},{$set:{
-        discription:req.body.discription,
-        price:req.body.price,
-        target:req.body.target,
-        details:req.body.details,
-        img:filename
-
-      }},(err)=> {if (err) throw err});
+    }, (err) => { if (err) throw err });
   })
   res.redirect('/users/myproject')
 })

@@ -16,7 +16,8 @@ const productSchema = new mongoose.Schema({
     comments: Array,
     username: Array,
     Date: Array,
-    id:String
+    id:String,
+    video:String
 
 
 
