@@ -11,7 +11,7 @@ const path = require('path');
 const progress = require('progress-stream');
 const axios = require('axios');
 const FormData = require('form-data');
-// const { response } = require('express');
+const Address=require('../models/address');
 
 
 let otpId;
@@ -271,6 +271,12 @@ router.get('/item/:id', (req, res) => {
   });
 
 });
+
+//  payment Address page
+
+router.get('/address_page',(req,res)=>{
+  res.render('addresspage',{style:'signup.css'});
+})
 
 
 
@@ -807,6 +813,22 @@ router.post('/edt_upload', (req, res) => {
     }, (err) => { if (err) throw err });
   })
   res.redirect('/users/myproject')
+});
+
+//  reading users address when preorder the item
+
+router.post('/address_save',(req,res)=>{
+
+  const {email,name,phone,country,address}= req.body
+  
+  const newAddress = new Address({
+    email:email,
+    name:name,
+    phone:phone,
+    country:country,
+    address:address
+  });
+  newAddress.save();
 })
 
 

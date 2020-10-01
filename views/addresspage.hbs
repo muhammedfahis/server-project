@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="/users/landingpage">Company</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+            </li>
+
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout"
+                    style="color: black;">logout</a></button>
+        </form>
+    </div>
+</nav>
+
+
+            <form action="/users/address_save" method="post"> 
+            <div class="container-fluid bg-light py-3">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+                <div class="card card-body">
+                    <h3 class="text-center mb-4">Payment</h3>
+                   
+                    <fieldset>
+                        <div class="form-group has-error">
+                            <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email">
+                        </div>
+                        <div class="form-group has-success">
+                            <input class="form-control input-lg" placeholder="Name" name="name" value="" type="text">
+                        </div>
+                        <div class="form-group has-success">
+                            <input class="form-control input-lg" placeholder="MobileNumber" name="phone" value="" type="number">
+                        </div>
+           
+                        <div class="form-group">
+                            <input class="form-control input-lg" placeholder="country" name="country" value="" type="text">
+                        </div>
+                         <div class="form-group">
+                          <textarea name="address" id="" cols="59" rows="10" placeholder="enter your Adress"></textarea>
+                        </div>
+                        
+                        <input class="btn btn-lg btn-primary btn-block" value="Continue" type="submit">
+                    </fieldset>
+    </div>
+</div>
+            </form>
