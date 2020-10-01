@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
     "nodemon": "^2.0.4",
+    "paypal-rest-sdk": "^1.8.1",
     "progress-stream": "^2.0.0",
     "resize-img": "^2.0.0"
   }
