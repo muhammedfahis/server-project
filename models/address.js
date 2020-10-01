@@ -8,7 +8,8 @@ const addressSchema =new moongoose.Schema({
     name:String,
     phone:Number,
     country:String,
-    address:String
+    address:String,
+    payed:{type:Boolean,default:false}
 });
 
 const Address =moongoose.model('Address',addressSchema);

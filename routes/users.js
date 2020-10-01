@@ -29,6 +29,8 @@ paypal.configure({
 let otpId;
 let login_otpId;
 let newUser;
+let productPrice;
+let productId;
 
 
 
@@ -283,6 +285,15 @@ router.get('/item/:id', (req, res) => {
   });
 
 });
+
+//my orders page
+
+router.get('/myorders',(req,res)=>{
+  Product.find({orderId:req.session.email}).exec((err,data)=>{
+    if(err)throw err;
+    res.render('myorders',{style:'signup.css',data:data});
+  })
+})
 
 //  payment Address page
 
@@ -633,7 +644,7 @@ router.post("/upload_video", (req, res) => {
 
 router.post('/comments', (req, res) => {
 
-  Product.updateOne({ _id: req.body._id }, { $push: { comments: req.body.comment, username: req.body.username, Date: Date.now() } }, ((err, data) => {
+  Product.updateOne({ _id: req.body._id }, { $push: { comments: req.body.comment, username: req.body.username, Date: Date.now() } }, ((err) => {
     if (err) throw err;
 
     Product.find({ _id: req.body._id }).lean().exec((err, data) => {
@@ -829,15 +840,33 @@ router.post('/edt_upload', (req, res) => {
 
 
 //  paypal complete works
+
+// redirecting to Address page
+
+router.post('/address_page',(req,res)=>{
+  const id =req.body.id;
+
+  if(req.session.email){
+    Product.findOne({_id:id}).exec((err,data)=>{
+      res.render('addresspage',{data:data});
+    })
+  }else{
+    res.redirect('/users/login');
+  }
+ 
+
+});
 //  reading users address when preorder the item
 
 
 router.post('/redirect_payment',(req,res)=>{
-
-  const {email,name,phone,country,address}= req.body
+  productId= req.body.id
+  console.log(productId);
+  productPrice =  (req.body.price).toString();
+  const {name,phone,country,address}= req.body
   
-  const newAddress = new Address({
-    email:email,
+  const newAddress = new User({
+    email:req.session.email,
     name:name,
     phone:phone,
     country:country,
@@ -857,16 +886,16 @@ router.post('/redirect_payment',(req,res)=>{
     "transactions": [{
         "item_list": {
             "items": [{
-                "name": "Red Sox Hat",
+                "name": ""+ req.body.discription,
                 "sku": "001",
-                "price": "25.00",
+                "price":  productPrice,
                 "currency": "USD",
                 "quantity": 1
             }]
         },
         "amount": {
             "currency": "USD",
-            "total": "25.00"
+            "total": productPrice
         },
         "description": "Hat for the best team ever"
     }]
@@ -897,7 +926,7 @@ router.get('/success', (req, res) => {
     "transactions": [{
         "amount": {
             "currency": "USD",
-            "total": "25.00"
+            "total": productPrice
         }
     }]
   };
@@ -908,13 +937,21 @@ router.get('/success', (req, res) => {
         throw error;
     } else {
         console.log(JSON.stringify(payment));
-        res.send('Success');
+
+        User.updateOne({email:req.session.email},{$set:{payed:true}},(err)=>{
+          if(err) throw err;
+        })
+        Product.updateOne({_id:productId},{$push:{orderId:req.session.email}},(err)=>{
+          if(err) throw err;
+        })
+        
+        res.redirect("/users/landingpage");
     }
 });
 });
 
 router.get('/cancel', (req, res) => res.send('Cancelled'));
-
+// ended payment .....................................
 
 
 

@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="/users/landingpage">Company</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+            </li>
+
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout"
+                    style="color: black;">logout</a></button>
+        </form>
+    </div>
+</nav>
+{{#each data}}
+<div class="container">
+    <div class="row">
+        
+        <div class="col-md-8 " style="">
+            <a href="/users/item/{{this._id}}">
+            <div class="card" style="width: 25rem;height: 25rem;margin-top: 10%;margin-left: 15%;">
+                <img class="card-img-top" style="height: 25rem;width: 25rem;" src="/images/{{this.img}}"
+                    alt="Card image cap">
+                
+            </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+           
+
+           <a href="/users/item/{{this._id}}"> <button type="submit" style="margin-top: 50%;width: 20rem;height: 3rem;"
+                class="btn btn-warning" >Edit</button></a>
+            
+            
+        </div>
+        
+    </div>
+</div>
+{{/each}}
