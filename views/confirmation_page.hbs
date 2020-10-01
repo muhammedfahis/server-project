@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+	<a class="navbar-brand" href="/users/landingpage">Company</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+			</li>
+
+
+
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout"
+					style="color: black;">logout</a></button>
+		</form>
+	</div>
+</nav>
+
+<div class="container" style="margin-top: 10%;margin-left: 20%;">
+    <div class="row">
+        <form action="/users/confirm_project" method="post">
+		<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">target</th>
+	  <th scope="col">Image</th>
+	   <th scope="col">Category</th>
+		<th scope="col">country</th>
+		<th scope="col">Video</th>
+		  
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{project.discription}}</td>
+      <td>{{project.price}}</td>
+      <td>{{project.target}}</td>
+      <td><img src="/images/{{project.img}}" style="width: 3rem;height: 3rem;" alt=""></td>
+	  <td>{{project.category}}</td>
+	  <td>{{project.country}}</td>
+	  <td><iframe src="/images/{{video.video}}" frameborder="0"></iframe></td>
+	  
+
+
+
+
+    </tr>
+    
+  </tbody>
+</table>
+		<button type="submit" class="btn btn-success mt-5" style="margin-left: 42%;">Confrim</button>
+		
+		</form>
+    </div>
+</div>

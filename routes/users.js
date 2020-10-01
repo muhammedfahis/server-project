@@ -31,6 +31,8 @@ let login_otpId;
 let newUser;
 let productPrice;
 let productId;
+let newProduct;
+let newVideo;
 
 
 
@@ -193,6 +195,12 @@ router.get('/start_project', (req, res) => {
   }
 });
 
+//  render confirm project page
+
+router.get('/confrim_page',(req,res)=>{
+  res.render('confirmaton_page',{style:'signup.css'});
+})
+
 router.get('/rules', userLoginChecker, (req, res) => {
   var isLogged;
   if (req.session.email) {
@@ -231,8 +239,8 @@ router.get('/items/:id', (req, res) => {
       res.render('product_page', { data: data, style: 'product_page.css', isLogged, email: req.session.email });
     } else {
       res.render('product_page', { data: data, style: 'product_page.css' });
-    }
-  })
+    };
+  });
 });
 
 // comment page
@@ -581,7 +589,7 @@ router.get('/resend_login_otp', (req, res) => {
 
 
 
-// axios
+
 
 
 
@@ -599,7 +607,7 @@ router.post('/project_upload', (req, res) => {
       var filename = req.file.filename
 
 
-      const newProduct = new Product({
+       newProduct = new Product({
         category: req.body.category,
         country: req.body.country,
         discription: req.body.discription,
@@ -610,11 +618,11 @@ router.post('/project_upload', (req, res) => {
         details: req.body.details,
         img: filename,
         Date: Date.now(),
-        id: req.session.email,
+        projectId: req.session.email,
 
 
       });
-      newProduct.save()
+      
       res.render('videoupload', { name: req.body.discription, style: 'signup.css' });
     }
   });
@@ -630,14 +638,39 @@ router.post("/upload_video", (req, res) => {
       console.log(req.file.path);
 
       var filename = req.file.filename
+       newVideo = new Product({
+        video:filename
+      });
 
-
-      Product.updateOne({ discription: req.body.discription }, { $set: { video: filename } }, (err) => {
-        if (err) throw err;
-        res.redirect('/users/landingpage');
-      })
+      res.render('confirmation_page',{video:newVideo,project:newProduct})
+      // Product.updateOne({ discription: req.body.discription }, { $set: { video: filename } }, (err) => {
+      //   if (err) throw err;
+      //   res.redirect('/users/landingpage');
+      // })
     }
   })
+})
+
+//  confirmation of adding project
+
+router.post('/confirm_project',(req,res)=>{
+     
+  const confirmProduct = new Product ({
+    category:newProduct.category,
+    discription:newProduct.discription,
+    price:newProduct.price,
+    target:newProduct.target,
+    img:newProduct.img,
+    checkbox_1:newProduct.checkbox_1,
+    checkbox_2:newProduct.checkbox_2,
+    country:newProduct.country,
+    Date:Date.now(),
+    video:newVideo.video,
+    projectId:req.session.email,
+    details:newProduct.details
+  })
+  confirmProduct.save();
+  res.redirect('/users/landingpage');
 })
 
 // comment page
