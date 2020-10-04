@@ -310,7 +310,8 @@
   
   .btn:not(:disabled):not(.disabled) {
     background-color: dark;
-    background-color: #000000;
+    background-color: #28df99;
+    border: none;
   }
   
   .col-md-4 {
@@ -334,6 +335,18 @@
     
     display: none;
     }
+body{
+  background-color: #f6f7d4 !important;
+}
+
+.nav-link{
+  color: #000 !important;
+}
+.card:hover{
+  transform: scale(1.03);
+  transition-delay: 0.1s;
+  box-shadow: 0px 0px 20px 0px #a5ecd7;
+}
  
 
   

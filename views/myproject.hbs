@@ -27,8 +27,8 @@
         
         <div class="col-md-8 " style="">
             <a href="/users/item/{{this._id}}">
-            <div class="card" style="width: 25rem;height: 25rem;margin-top: 10%;margin-left: 15%;">
-                <img class="card-img-top" style="height: 25rem;width: 25rem;" src="/images/{{this.img}}"
+            <div class="card" style="width: 25rem;height: 15rem;margin-top: 10%;margin-left: 15%;">
+                <img class="card-img-top" style="height: 15rem;width: 25rem;" src="/images/{{this.img}}"
                     alt="Card image cap">
                 
             </div>
@@ -37,13 +37,13 @@
         <div class="col-md-4">
             <form action="/users/dlt_project" method="post">
               <input type="hidden" name="id" value="{{this._id}}" >
-            <button type="submit" style="margin-top: 30%;width: 20rem;height: 3rem;"
+            <button type="submit" style="margin-top: 30%;width: 10rem;height: 3rem; font-weight: 600"
                 class="btn btn-danger"  onclick="return confirm('Are you sure to delete?')">Delete</button>
                 </form>
 
             <form action="/users/edt_project" method="post">
             <input type="hidden" name="id" value="{{this._id}}" >
-            <button type="submit" style="margin-top: 30%;width: 20rem;height: 3rem;"
+            <button type="submit" style="margin-top: 10%;width: 10rem;height: 3rem; font-weight: 600"
                 class="btn btn-warning" >Edit</button>
             </form>
             

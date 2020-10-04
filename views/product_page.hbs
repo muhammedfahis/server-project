@@ -55,7 +55,7 @@
 <div class="container mt-5 mb-5">
   <div class="row">
     {{#each data}}
-    <h4 style="margin-left: 18%;">{{this.discription}}</h4>
+    <h4 style="margin-left: 18%; font-size: 2.5em">{{this.discription}}</h4>
     {{/each}}
 
   </div>
@@ -82,7 +82,7 @@
       <h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
       {{/each}}
       
-      <p style="margin-left: 25%;"> pledged of US {{#each pledged}}{{this}}{{/each}} goal</p>
+      <p style="margin-left: 25%;">Pledged of US <strong>{{#each pledged}}{{this}}{{/each}}</strong> goal</p>
       
       <h4 class=" mt-5 " style="margin-left: 27%;"><strong>
           {{count}}</strong></h4>
@@ -136,10 +136,10 @@
   </div>
 </div>
 <div class="container mt-5">
-  <div class="row" style="margin-left: 10%;">
+  <div class="row" style="margin-left: 0;">
     <div class="col-md-12">
       {{#each data}}
-      <iframe src="/images/{{this.video}}" frameborder="0" style="width: 25rem;height:25rem"></iframe>
+      <iframe src="/images/{{this.video}}" frameborder="0" style="width: 100%;height:25rem"></iframe>
       {{/each}}
     </div>
   </div>

@@ -394,19 +394,28 @@ router.post("/signup", (req, res) => {
   //     msg: "enter same password",
   //   });
 
-  User.findOne({}, (err, data) => {
-    console.log(data);
+  User.find({},{email:1,number:1}, (err, data) => {
+   console.log(data);
     if (err) throw err;
-    if (data.email === email) {
+    if (data.email == email) {
       res.render("signup", {
         name: name,
         msg: "account already taken",
       });
-    } else if (data.number === phone) {
+    } else if (data.number == phone) {
       res.render("signup", {
         name: name,
         msg: "account already taken",
       });
+    }else if(password !== confirmPassword){
+      
+        res.render("signup", {
+          name: name,
+          email: email,
+          password: password,
+          msg: "enter same password",
+        });
+
     } else {
       newUser = new User({
         email: email,
@@ -559,6 +568,7 @@ router.get("/resend_otp", (req, res) => {
 router.post("/otp_login", (req, res) => {
   const phone = req.body.phone;
   User.findOne({ number: req.body.phone }).exec((err, data) => {
+    if (err) throw err;
     if (data) {
       var data = new FormData();
       data.append("mobile", "91" + phone);
