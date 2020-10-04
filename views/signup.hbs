@@ -47,7 +47,9 @@
 
 {{/if}}
 
-
+<div class="alert alert-primary" role="alert">
+  {{msg}}
+</div>
 <form method="POST" action="/users/signup" class="mt-5 ">
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
@@ -85,9 +87,20 @@
  
   <div class="form-group row">
     <div class="col-md-12">
-      <button type="submit" id="#btnSubmit" class="btn btn-primary mt-5" style="margin-left: 50%;">Sign in</button>
+      <button type="submit" id="#btnSubmit" class="btn btn-primary mt-5" style="margin-left: 50%; ">Sign in</button>
     </div>
   </div>
 </form>
+
+<script>
+var password = document.getElementById('txtPassword').value;
+var confirmPassword= document.getElementById('txtConfirmPassword').value;
+
+if(password !== confirmPassword){
+  alert("enter same password");
+  })
+}
+
+</script>
 
 

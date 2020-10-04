@@ -56,19 +56,19 @@
 <div class="row">
 	<div class="col-md-12 ">
 		<form action="/users/project_upload" method="post" enctype="multipart/form-data">
-		<h3 class="mt-5" style="margin-left: 35%;">First, let’s get you set up.</h3>
-		<p
-			style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-			Pick a project category to connect with a specific community. <br> can always update this later.</p>
-		<select class="mt-5" id="country-dropdown" name="category">
-			<option>Select your category</option>
-			<option name="Arts" value="Arts">Arts</option>
-			<option name="Tech" value="Tech">Tech</option>
-			<option name="Craft" value="Craft">Craft</option>
-			<option name="Fashion" value="Fashion">Fashion</option>
-			<option name="Games" value="Games">Games</option>
+			<h3 class="mt-5" style="margin-left: 35%;">First, let’s get you set up.</h3>
+			<p
+				style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+				Pick a project category to connect with a specific community. <br> can always update this later.</p>
+			<select class="mt-5" id="country-dropdown" name="category">
+				<option>Select your category</option>
+				<option name="Arts" value="Arts">Arts</option>
+				<option name="Tech" value="Tech">Tech</option>
+				<option name="Craft" value="Craft">Craft</option>
+				<option name="Fashion" value="Fashion">Fashion</option>
+				<option name="Games" value="Games">Games</option>
 
-		</select>
+			</select>
 
 
 	</div>
@@ -428,23 +428,25 @@
 
 <div class="row">
 
+
 	<div class="col-md-12">
 		<h3 class="mt-5" style="margin-left: 35%;"> let’s input image</h3>
 		<p
 			style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
 			Choose an image</p>
 
-
 		
-			<div class="form-group" style="margin-left:13em;">
 
-				<input type="file" onchange="readURL(this);" class="form-control-file" name="image"
-					id="exampleFormControlFile1" required>
-				<img id="show-image" />
-				<button type="button" id="btn"  class="btn btn-primary mt-5" style="margin-left: 42%;">upload</button>
-			</div>
+		<div class="form-group" style="margin-left:13em;">
 
+			<input type="file" onchange="readURL(this);" class="form-control-file" name="image"
+				id="exampleFormControlFile1" required>
+			<img id="show-image" class="my-image" />
 			
+			<button type="button" id="btn" class="btn btn-primary mt-5" style="margin-left: 42%;">upload</button>
+		</div>
+
+
 	</div>
 </div>
 
@@ -453,7 +455,7 @@
 <div class="progress">
 	<div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
 		aria-valuemax="100" style="width: 0%;">
-		
+
 	</div>
 </div>
 <div class="row">
@@ -476,7 +478,7 @@
 		</div>
 	</div>
 </div>
-<button type="submit"  class="btn btn-success mt-5" style="margin-left: 42%;">Next</button>
+<button type="submit" class="btn btn-success mt-5" style="margin-left: 42%;">Next</button>
 </form>
 
 
@@ -484,6 +486,7 @@
 
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/{version}/croppie.min.js"></script>
 <script>
 	function readURL(input) {
 		if (input.files && input.files[0]) {
@@ -502,8 +505,8 @@
 
 		var showInfo = function (message) {
 			$('#progress').hide();
-			
-			
+
+
 		};
 
 		$('#btn').on('click', function (evt) {
@@ -524,7 +527,7 @@
 				}
 			};
 
-			
+
 
 			xhr.onload = function () {
 				showInfo(this.statusText);
@@ -535,5 +538,8 @@
 		});
 
 	});
+
+
+
 
 </script>

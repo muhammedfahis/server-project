@@ -80,15 +80,27 @@
     <div class="col-md-6 mt-5">
       {{#each data}}
       <h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
-      <p style="margin-left: 25%;"> pledged of US{{this.target}} goal</p>
+      {{/each}}
+      
+      <p style="margin-left: 25%;"> pledged of US {{#each pledged}}{{this}}{{/each}} goal</p>
+      
       <h4 class=" mt-5 " style="margin-left: 27%;"><strong>
-          0</strong></h4>
+          {{count}}</strong></h4>
+        
       <p style="margin-left: 25%;"> backers</p>
-      <h4 class=" mt-5 " style="margin-left: 27%;"><strong>0</strong></h4>
+      <div>
+        
+      </div>
+      <h4 class=" mt-5 " style="margin-left: 27%;"><strong>{{countDown}}</strong></h4>
       <p style="margin-left: 25%;"> days to go</p>
+      {{#each data}}
       <form action="/users/address_page" method="post">
       <input type="hidden" value="{{this._id}}" name="id">
       <button type="submit" style="margin-left: 25%;" class="btn btn-success">pre-order</button>
+      </form>
+      <form action="/users/back_page" method="post" >
+      <input type="hidden" value="{{this._id}}" name="id">
+      <button type="submit" style="margin-left: 25%;" class="btn btn-success mt-5">Back this project</button>
       </form>
       {{/each}}
 
@@ -132,3 +144,4 @@
     </div>
   </div>
 </div>
+

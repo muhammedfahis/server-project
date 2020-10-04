@@ -3,8 +3,17 @@ var router = express.Router();
 var session = require('express-session');
 var Product = require('../models/product');
 var User = require('../models/User');
+var Order =require ('../models/orders');
 var multer = require('multer');
 var path = require('path');
+var MongoDBStore = require('connect-mongodb-session')(session);
+var store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
+  collection: 'mySessions'
+});
+store.on('error', function(error) {
+  console.log(error);
+});
 
 
 
@@ -14,6 +23,7 @@ router.use(session({
   secret: 'ok',
   name: 'adminCookie',
   saveUninitialized: false,
+  store: store,
   resave: false,
 
   cookie: {
@@ -93,6 +103,19 @@ router.get('/getusers', (req, res) => {
 
 router.get('/edit_user', (req, res) => {
   res.render('editUser', { style: 'editUsers.css' });
+});
+
+router.get('/orders',(req,res)=>{
+  Order.find({type:'pre-order',status:true}).lean().exec((err,data)=>{
+    res.render('admin_orders',{data:data,style:'signup.css'})
+  });
+
+router.get('/backers',(req,res)=>{
+  Order.find({type:'back',status:'true'}).lean().exec((err,data)=>{
+    res.render('admin_backpage',{data:data,style:'signup.css'})
+  })
+})
+  
 })
 // post routers
 
@@ -185,6 +208,10 @@ router.post('/save_edit', (req,res) => {
     res.redirect('/getusers');
   })
 });
+
+router.post('/orders',(req,res)=>{
+
+})
 
 
 module.exports = router;

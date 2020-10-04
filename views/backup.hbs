@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="/users/landingpage">Company</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+      </li>
+     
+     
+      
+    </ul>
+     <form class="form-inline my-2 my-lg-0" method="POST" action="/users/logout">
+       
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="" style="color: black;">logout</a></button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="container">
+   
+        <form action="/users/back_project" method="post">
+        
+  
+  <h1>{{data.discription}}</h1>
+
+  <h6 style="margin-left: 40%;color: green;margin-top: 10%;">Support this project</h6>
+  
+  <div class="row mt-5">
+    
+      <div class="col-md-4 col-lg-4 col-sm-4">
+        
+        <label>
+          <input type="radio" name="product" value="10" class="card-input-element" />
+
+            <div class="panel panel-default card-input">
+              <div class="panel-heading"><h1>$10</h1></div>
+              <div class="panel-body">
+               <h6>Pledge without a reward</h6>
+               <p>Back it because you believe in it.
+                Support the project for no reward, just because it speaks to you.</p>
+              </div>
+            </div>
+
+        </label>
+        
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-4">
+        
+        <label>
+          <input type="radio" name="product" value="25" class="card-input-element" />
+
+            <div class="panel panel-default card-input">
+              <div class="panel-heading"><h1>$25</h1></div>
+              <div class="panel-body">
+                <p>ABOUT US$ 12
+Futures (Early Bird)
+You will receive one copy of Futures including all unlocked stretch goals.
+
+FREE SHIPPING (customs already included) on all orders to every country worldwide. No hidden or delayed fees. Shipped in time for the holiday season!</p>
+              </div>
+            </div>
+        </label>
+        
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-4">
+        
+        <label>
+          <input type="radio" name="product" value="50" class="card-input-element" />
+
+            <div class="panel panel-default card-input">
+              <div class="panel-heading"><h1>$50</h1></div>
+              <div class="panel-body">
+                
+ABOUT US$ 23
+Futures x2 (Early Bird)
+You will receive two copies of Futures including all unlocked stretch goals.
+
+FREE SHIPPING (customs already included) on all orders to every country worldwide. No hidden or delayed fees. Shipped in time for the holiday season!
+
+
+              </div>
+            </div>
+        </label>
+        
+      </div>
+  </div>
+  <input type="hidden" value="{{data.discription}}" name="name">
+  <input type="hidden" value="{{data._id}}" name="id">
+ <input class="btn btn-lg btn-success btn-block" value="Continue" type="submit">
+        
+        </form>
+   
+</div>

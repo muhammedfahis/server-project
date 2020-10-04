@@ -21,28 +21,35 @@
         </form>
     </div>
 </nav>
-{{#each data}}
+
 <div class="container">
     <div class="row">
-        
-        <div class="col-md-8 " style="">
-            <a href="/users/item/{{this._id}}">
-            <div class="card" style="width: 25rem;height: 25rem;margin-top: 10%;margin-left: 15%;">
-                <img class="card-img-top" style="height: 25rem;width: 25rem;" src="/images/{{this.img}}"
-                    alt="Card image cap">
-                
-            </div>
-            </a>
-        </div>
-        <div class="col-md-4">
-           
+        <div class="col-md-12">
+            <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+     {{#each data}}
+    <tr>
+    
+      <td><img src="/images/{{this.img}}" alt="" style="width: 5rem;height: 5rem;"></td>
+      <td>{{this.amount}}</td>
+      <td>{{this.discription}}</td>
+      <td>{{this.Date}}</td>
+    </tr>
+   {{/each}}
+    
+  
+  </tbody>
+</table>
 
-           <a href="/users/item/{{this._id}}"> <button type="submit" style="margin-top: 50%;width: 20rem;height: 3rem;"
-                class="btn btn-warning" >Edit</button></a>
-            
-            
+
         </div>
-        
     </div>
 </div>
-{{/each}}

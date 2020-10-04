@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const { on } = require('./User');
+const Schema = mongoose.Schema;
 
-
-const productSchema = new mongoose.Schema({
-
+const productSchema = new Schema({
     category: String,
     discription: String,
     price: Number,
@@ -19,12 +18,7 @@ const productSchema = new mongoose.Schema({
     projectId:String,
     video:String,
     orderId:Array,
-    
-    
-
-
-
+    projectDate:{type:Number,default:new Date().getTime()}
 });
-
 const Product = mongoose.model('Product', productSchema);
 module.exports = Product

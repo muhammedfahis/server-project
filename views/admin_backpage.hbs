@@ -40,8 +40,7 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
-      <th scope="col">Target</th>
-      <th scope="col">Img</th>
+      <th scope="col">User</th>
       <th scope="col">Delete</th>
       <th scope="col">Edit</th>
       
@@ -50,18 +49,11 @@
   <tbody>
       {{#each data}}
     <tr>
-      <th >{{this.discription}}</th>
-      <td>{{this.price}}</td>
-      <td>{{this.target}}</td>
-      <td><img src="/images/{{this.img}}" alt="" style="width: 3rem;height: 3rem;"></td>
-      <td><form action="/edit_project" method="post">
-      <input type="hidden" name="id" value="{{this._id}}">
-      <button type="submit" class="btn btn-warning">Edit</button>
-      </form></td>
-      <td><form action="/delete_project" method="post">
-       <input type="hidden" name="_id" value="{{this._id}}">
-       <button type="submit" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</button>
-      </form></td>
+      <td>{{this.discription}}</td>
+      <td>{{this.amount}}</td>
+      <td>{{this.email}}</td>
+    
+     
        
        
 

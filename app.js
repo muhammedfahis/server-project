@@ -7,6 +7,7 @@ var mongoose=require('mongoose');
 var upload=require('express-fileupload');
 var session= require('express-session');
 var bodyParser= require('body-parser');
+
 var router =express.Router();
 
 
@@ -34,7 +35,7 @@ mongoose.connect('mongodb://localhost/mydb',
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 
 app.use(express.json());
 // app.use(bodyParser.json())
