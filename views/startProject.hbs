@@ -431,18 +431,21 @@
 
 	<div class="col-md-12">
 		<h3 class="mt-5" style="margin-left: 35%;"> let’s input image</h3>
+		<div class="alert alert-warning" id="image-warning" style="display: none;" role="alert">
+			dsffsd
+		</div>
 		<p
 			style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
 			Choose an image</p>
 
-		
+
 
 		<div class="form-group" style="margin-left:13em;">
 
 			<input type="file" onchange="readURL(this);" class="form-control-file" name="image"
 				id="exampleFormControlFile1" required>
 			<img id="show-image" class="my-image" />
-			
+
 			<button type="button" id="btn" class="btn btn-primary mt-5" style="margin-left: 42%;">upload</button>
 		</div>
 
@@ -487,10 +490,7 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/{version}/croppie.min.js"></script>
-<script>
-	var imageField = document.getElementById("show-image");
-	var uploadButton = document.getElementById("btn");
-</script>
+
 <script>
 	function readURL(input) {
 		if (input.files && input.files[0]) {
@@ -515,29 +515,37 @@
 
 		$('#btn').on('click', function (evt) {
 			evt.preventDefault();
-			$('#progress').show();
-			var formData = new FormData();
-			var file = document.getElementById('exampleFormControlFile1').files[0];
-			formData.append('exampleFormControlFile1', file);
+			var imageField = document.getElementById("show-image");
+			if (imageField.src === "") {
+				var imageWaring = document.getElementById("image-warning");
+				imageWaring.innerText = "Select an image";
+				imageWaring.style.display = "block"
+			} else {
 
-			var xhr = new XMLHttpRequest();
+				$('#progress').show();
+				var formData = new FormData();
+				var file = document.getElementById('exampleFormControlFile1').files[0];
+				formData.append('exampleFormControlFile1', file);
 
-			xhr.open('post', '/users/project_upload', true);
+				var xhr = new XMLHttpRequest();
 
-			xhr.upload.onprogress = function (e) {
-				if (e.lengthComputable) {
-					var percentage = (e.loaded / e.total) * 100;
-					$('#progressBar').css('width', percentage + '%');
-				}
-			};
+				xhr.open('post', '/users/project_upload', true);
+
+				xhr.upload.onprogress = function (e) {
+					if (e.lengthComputable) {
+						var percentage = (e.loaded / e.total) * 100;
+						$('#progressBar').css('width', percentage + '%');
+					}
+				};
 
 
 
-			xhr.onload = function () {
-				showInfo(this.statusText);
-			};
+				xhr.onload = function () {
+					showInfo(this.statusText);
+				};
 
-			xhr.send(formData);
+				xhr.send(formData);
+			}
 
 		});
 

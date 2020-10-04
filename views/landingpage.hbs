@@ -292,7 +292,12 @@
 
 <script>
 document.getElementById("popup-button").addEventListener("click",function(){
-    document.querySelector(".popup").style.display = "block"; 
+    var filter_page = document.querySelector(".popup");
+    if(filter_page.style.display === "none"){
+        filter_page.style.display = "block"; 
+    }else{
+        filter_page.style.display = "none"; 
+    }
 })
 </script>
 </body>
