@@ -45,11 +45,12 @@
   </div>
 </nav>
 
-{{/if}}
-
+{{/if }}
+{{#if msg}}
 <div class="alert alert-primary" role="alert">
   {{msg}}
 </div>
+{{/if}}
 <form method="POST" action="/users/signup" class="mt-5 ">
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>

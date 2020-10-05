@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require("../models/User");
 const session = require("express-session");
 const Product = require("../models/product");
-const fs = require("fs-extra");
 const mkdirp = require("mkdirp");
 const resizeimg = require("resize-img");
 const multer = require("multer");
@@ -14,6 +13,7 @@ const FormData = require("form-data");
 const Address = require("../models/address");
 const paypal = require("paypal-rest-sdk");
 const Order = require("../models/orders");
+const fs = require("fs");
 var MongoDBStore = require("connect-mongodb-session")(session);
 var store = new MongoDBStore({
   uri: "mongodb://localhost:27017/connect_mongodb_session_test",
@@ -42,6 +42,7 @@ let newProduct;
 let newVideo;
 let priceValue;
 let backProductId;
+var projectName;
 
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -306,20 +307,43 @@ router.get("/items/:id", (req, res) => {
 
 router.get("/comments/:id", (req, res) => {
   const id = req.params.id;
-  Product.find({ _id: id }).exec((err, data) => {
+  Order.count({ productId: id, type: "back" }).exec((err, count) => {
     if (err) throw err;
-    var isLogged;
-    if (req.session.email) {
-      isLogged = true;
-      res.render("commentPage", {
-        data: data,
-        style: "commentPage.css",
-        isLogged,
-        email: req.session.email,
+
+    Order.aggregate([
+      { $match: { productId: id, status: true } },
+      { $group: { _id: null, amount: { $sum: "$amount" } } },
+    ]).exec((err, amount) => {
+      console.log(amount);
+
+      let pledged = amount[0];
+      Product.findOne({ _id: id }).exec((err, data) => {
+        if (err) throw err;
+        console.log(data);
+        let date = new Date().getTime();
+        let difference = data.projectDate - date;
+        difference = Math.abs(difference);
+        let differenceInDays = difference / 1000 / 60 / 60 / 24;
+        differenceInDays = Math.round(differenceInDays);
+        let countDown = 60 - differenceInDays;
+
+        var isLogged;
+        if (req.session.email) {
+          isLogged = true;
+          res.render("commentPage", {
+            data: [data],
+            pledged,
+            count,
+            countDown,
+            style: "commentPage.css",
+            isLogged,
+            email: req.session.email,
+          });
+        } else {
+          res.render("commentPage", { data: data, style: "commentPage.css" });
+        }
       });
-    } else {
-      res.render("commentPage", { data: data, style: "commentPage.css" });
-    }
+    });
   });
 });
 
@@ -394,8 +418,8 @@ router.post("/signup", (req, res) => {
   //     msg: "enter same password",
   //   });
 
-  User.find({},{email:1,number:1}, (err, data) => {
-   console.log(data);
+  User.find({}, { email: 1, number: 1 }, (err, data) => {
+    console.log(data);
     if (err) throw err;
     if (data.email == email) {
       res.render("signup", {
@@ -407,15 +431,13 @@ router.post("/signup", (req, res) => {
         name: name,
         msg: "account already taken",
       });
-    }else if(password !== confirmPassword){
-      
-        res.render("signup", {
-          name: name,
-          email: email,
-          password: password,
-          msg: "enter same password",
-        });
-
+    } else if (password !== confirmPassword) {
+      res.render("signup", {
+        name: name,
+        email: email,
+        password: password,
+        msg: "enter same password",
+      });
     } else {
       newUser = new User({
         email: email,
@@ -682,32 +704,30 @@ router.get("/resend_login_otp", (req, res) => {
 // product upload
 
 router.post("/project_upload", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(req.file.path);
+  imagePath = req.body.discription
+  projectName = `${req.body.discription}.png`
+  var datatoconvert = req.body.imageData;
+  let base64Image = datatoconvert.split(";base64,").pop();
+  fs.writeFile(`public/images/${imagePath}.png`, base64Image, { encoding: "base64" }, function (
+    err
+  ) {
+    newProduct = {
+      category: req.body.category,
+      country: req.body.country,
+      discription: req.body.discription,
+      checkbox_1: req.body.checkbox_1,
+      checkbox_2: req.body.checkbox_2,
+      price: req.body.price,
+      target: req.body.target,
+      details: req.body.details,
+      img: projectName,
+      projectId: req.session.email,
+    };
 
-      var filename = req.file.filename;
-
-      newProduct = new Product({
-        category: req.body.category,
-        country: req.body.country,
-        discription: req.body.discription,
-        checkbox_1: req.body.checkbox_1,
-        checkbox_2: req.body.checkbox_2,
-        price: req.body.price,
-        target: req.body.target,
-        details: req.body.details,
-        img: filename,
-        projectId: req.session.email,
-      });
-
-      res.render("videoupload", {
-        name: req.body.discription,
-        style: "signup.css",
-      });
-    }
+    res.render("videoupload", {
+      name: req.body.discription,
+      style: "signup.css",
+    });
   });
 });
 
@@ -751,6 +771,7 @@ router.post("/confirm_project", (req, res) => {
     projectId: req.session.email,
     details: newProduct.details,
   });
+  console.log(newProduct)
   confirmProduct.save();
   res.redirect("/users/landingpage");
 });
@@ -1283,5 +1304,7 @@ router.get("/back_success", async (req, res) => {
 // backup cancel router
 
 router.get("/back_cancel", (req, res) => res.send("Cancelled"));
+
+
 
 module.exports = router;

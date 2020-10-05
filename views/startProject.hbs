@@ -55,7 +55,7 @@
 
 <div class="row">
 	<div class="col-md-12 ">
-		<form action="/users/project_upload" method="post" enctype="multipart/form-data">
+		<form action="/users/project_upload" method="post">
 			<h3 class="mt-5" style="margin-left: 35%;">First, let’s get you set up.</h3>
 			<p
 				style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
@@ -442,11 +442,38 @@
 
 		<div class="form-group" style="margin-left:13em;">
 
-			<input type="file" onchange="readURL(this);" class="form-control-file" name="image"
-				id="exampleFormControlFile1" required>
-			<img id="show-image" class="my-image" />
 
-			<button type="button" id="btn" class="btn btn-primary mt-5" style="margin-left: 42%;">upload</button>
+
+			<main class="page">
+
+				<!-- input file -->
+				<div class="box">
+					<input type="file" id="file-input" name="image">
+				</div>
+				<!-- leftbox -->
+				<div class="box-2">
+					<div class="result"></div>
+				</div>
+				<!--rightbox-->
+				<div id="image" class="box-2 img-result hide">
+					<!-- result of crop -->
+					<img class="cropped" id="cropped" src="" alt="">
+				</div>
+				<!-- input file -->
+				<div class="box">
+					<div class="options hide">
+
+						<input type="hidden" class="img-w" value="300" min="100" max="1200" />
+					</div>
+					<!-- save btn -->
+					<button class="btn save hide">Save</button>
+					<!-- download btn -->
+					<button type="button" id="btn">upload</button>
+				</div>
+			</main>
+
+
+
 		</div>
 
 
@@ -481,6 +508,7 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" name="imageData" id="imageBaseData" value="" />
 <button type="submit" class="btn btn-success mt-5" style="margin-left: 42%;">Next</button>
 </form>
 
@@ -489,21 +517,10 @@
 
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/{version}/croppie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
 
 <script>
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
 
-			reader.onload = function (e) {
-				$('#show-image')
-					.attr('src', e.target.result);
-			};
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 
 	$(function () {
 
@@ -513,9 +530,13 @@
 
 		};
 
+		$("#btn").on('mouseover', () => {
+			setImageData();
+		})
+
 		$('#btn').on('click', function (evt) {
 			evt.preventDefault();
-			var imageField = document.getElementById("show-image");
+			var imageField = document.getElementById("image");
 			if (imageField.src === "") {
 				var imageWaring = document.getElementById("image-warning");
 				imageWaring.innerText = "Select an image";
@@ -524,8 +545,8 @@
 
 				$('#progress').show();
 				var formData = new FormData();
-				var file = document.getElementById('exampleFormControlFile1').files[0];
-				formData.append('exampleFormControlFile1', file);
+				var file = document.getElementById('file-input').files[0];
+				formData.append('file-input', file);
 
 				var xhr = new XMLHttpRequest();
 
@@ -551,7 +572,73 @@
 
 	});
 
+	let result = document.querySelector('.result'),
+		img_result = document.querySelector('.img-result'),
+		img_w = document.querySelector('.img-w'),
+		img_h = document.querySelector('.img-h'),
+		options = document.querySelector('.options'),
+		save = document.querySelector('.save'),
+		cropped = document.querySelector('.cropped'),
+		dwn = document.querySelector('.download'),
+		upload = document.querySelector('#file-input'),
+		cropper = '';
+
+
+	// on change show image with crop options
+	upload.addEventListener('change', (e) => {
+		if (e.target.files.length) {
+			// start file reader
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				if (e.target.result) {
+					// create new image
+					let img = document.createElement('img');
+					img.id = 'image';
+					img.src = e.target.result
+					// clean result before
+					result.innerHTML = '';
+					// append new image
+					result.appendChild(img);
+					// show save btn and options
+					save.classList.remove('hide');
+					options.classList.remove('hide');
+					// init cropper
+					cropper = new Cropper(img);
+				}
+			};
+			reader.readAsDataURL(e.target.files[0]);
+		}
+	});
+
+	// save on click
+	save.addEventListener('click', (e) => {
+		e.preventDefault();
+		// get result to data uri
+		let imgSrc = cropper.getCroppedCanvas({
+			width: img_w.value // input value
+		}).toDataURL();
+		// remove hide class of img
+		cropped.classList.remove('hide');
+		img_result.classList.remove('hide');
+		// show image cropped
+		cropped.src = imgSrc;
+		dwn.classList.remove('hide');
+		dwn.download = 'imagename.png';
+		dwn.setAttribute('href', imgSrc);
+	});
 
 
 
+
+</script>
+
+<script>
+	function setImageData() {
+
+		var imageElement = document.getElementById("cropped");
+		var imageData = imageElement.src;
+		var hiddenElement = document.getElementById("imageBaseData");
+		hiddenElement.value = imageData;
+		console.log("data set")
+	}
 </script>

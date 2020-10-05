@@ -85,7 +85,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', checkAdmin, (req, res) => {
   Product.find({}).exec((err, data) => {
     if (err) throw err;
-    res.render('admin_dashboard', { data: data, style: 'admindashboard.css' });
+    res.render('admin_dashboard', { data: data, style: '' });
   })
 });
 
@@ -96,7 +96,7 @@ router.get('/edit_project', (req, res) => {
 router.get('/getusers', (req, res) => {
   User.find({}).lean().exec((err, data) => {
     if (err) throw err;
-    res.render('getUsers', { data: data, style: 'getUsers.css' });
+    res.render('getUsers', { data: data, style: '' });
 
   })
 });
@@ -107,12 +107,12 @@ router.get('/edit_user', (req, res) => {
 
 router.get('/orders',(req,res)=>{
   Order.find({type:'pre-order',status:true}).lean().exec((err,data)=>{
-    res.render('admin_orders',{data:data,style:'signup.css'})
+    res.render('admin_orders',{data:data})
   });
 
 router.get('/backers',(req,res)=>{
   Order.find({type:'back',status:'true'}).lean().exec((err,data)=>{
-    res.render('admin_backpage',{data:data,style:'signup.css'})
+    res.render('admin_backpage',{data:data})
   })
 })
   
