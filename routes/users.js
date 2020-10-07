@@ -734,6 +734,8 @@ router.post("/project_upload", (req, res) => {
 // video upload
 
 router.post("/upload_video", (req, res) => {
+
+  if(req.body.image){
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
@@ -741,22 +743,24 @@ router.post("/upload_video", (req, res) => {
       console.log(req.file.path);
 
       var filename = req.file.filename;
-      newVideo = new Product({
+      newVideo = ({
         video: filename,
       });
 
       res.render("confirmation_page", { video: newVideo, project: newProduct });
-      // Product.updateOne({ discription: req.body.discription }, { $set: { video: filename } }, (err) => {
-      //   if (err) throw err;
-      //   res.redirect('/users/landingpage');
-      // })
     }
   });
+}else{
+  res.render('confirmation_page',{project:newProduct});
+}
 });
+
 
 //  confirmation of adding project
 
 router.post("/confirm_project", (req, res) => {
+
+  if(newVideo){
   const confirmProduct = new Product({
     category: newProduct.category,
     discription: newProduct.discription,
@@ -774,6 +778,24 @@ router.post("/confirm_project", (req, res) => {
   console.log(newProduct)
   confirmProduct.save();
   res.redirect("/users/landingpage");
+}else{
+  const confirmProduct = new Product({
+    category: newProduct.category,
+    discription: newProduct.discription,
+    price: newProduct.price,
+    target: newProduct.target,
+    img: newProduct.img,
+    checkbox_1: newProduct.checkbox_1,
+    checkbox_2: newProduct.checkbox_2,
+    country: newProduct.country,
+    Date: Date.now(),
+    projectId: req.session.email,
+    details: newProduct.details,
+  });
+  console.log(newProduct)
+  confirmProduct.save();
+  res.redirect("/users/landingpage");
+}
 });
 
 // comment page

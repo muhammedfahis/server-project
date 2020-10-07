@@ -1,11 +1,11 @@
 <body class="bg-dark">
 
-
+{{#if err}}
 
     <div class="alert alert-primary" role="alert">
         {{err}}
     </div>
-
+{{/if}}
     <div class="container ">
         <div class="col-md-12 " style="margin-left: 36%;margin-top: 15%;">
             <form action="/users/verify_otp" method="POST">

@@ -79,7 +79,7 @@
 
     <div class="col-md-6 mt-5">
       {{#each data}}
-      <h4 class="text-success " style="margin-left: 25%;">US {{this.price}}</h4>
+      <h4 class="text-success " style="margin-left: 25%;">US {{this.target}}</h4>
       {{/each}}
       
       <p style="margin-left: 25%;">Pledged of US <strong>{{#each pledged}}{{this}}{{/each}}</strong> goal</p>
@@ -139,7 +139,11 @@
   <div class="row" style="margin-left: 0;">
     <div class="col-md-12">
       {{#each data}}
-      <iframe src="/images/{{this.video}}" frameborder="0" style="width: 100%;height:25rem"></iframe>
+      {{#if video}}
+      
+      <iframe src="/images/{{video}}" frameborder="0" style="width: 100%;height:25rem"></iframe>
+     
+      {{/if}}
       {{/each}}
     </div>
   </div>
