@@ -2,17 +2,17 @@
 
 {{#if isLogged }}
 <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="/users/landingpage">Company Name</a><button
+    <div class="container"><a class="navbar-brand" href="/">Company Name</a><button
             data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
                 navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav mr-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link " href="/users/rules">start project</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link " href="/rules">start project</a></li>
 
                 <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown"
                         aria-expanded="false" href="#">users</a>
-                    <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="/users/myproject">My
-                            project</a><a class="dropdown-item" role="presentation" href="/users/myorders">My orders</a></div>
+                    <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="/myproject">My
+                            project</a><a class="dropdown-item" role="presentation" href="/myorders">My orders</a></div>
                 </li>
                 <li class="nav-item" role="presentation"></li>
             </ul>
@@ -20,7 +20,7 @@
 
                 <a class=" btn-light action-button" role="button" href="#">{{email}}</a>
 
-                <a class="btn btn-light action-button" role="button" href="/users/logout">logout</a>
+                <a class="btn btn-light action-button" role="button" href="/logout">logout</a>
                 <a class="btn btn-light action-button" id="popup-button" role="button" href="#">filter</a></span>
 
 
@@ -34,18 +34,18 @@
 
 
 <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-    <div class="container"><a class="navbar-brand" href="/users/landingpage">Company Name</a><button
+    <div class="container"><a class="navbar-brand" href="/">Company Name</a><button
             data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
                 navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav mr-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link " href="/users/rules">start project</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link " href="/rules">start project</a></li>
 
               
             </ul><span class="navbar-text actions">
 
-                <a class="login" href="/users/login">login</a>
-                <a class="login" href="/users/signup">Signup</a>
+                <a class="login" href="/login">login</a>
+                <a class="login" href="/signup">Signup</a>
                 <a class="btn btn-light action-button" id="popup-button" role="button" href="#">filter</a></span>
         </div>
     </div>
@@ -67,20 +67,20 @@
                     <div class="collapse navbar-collapse" id="navbarNav" style="">
                         <ul class="navbar-nav" style="padding-left: 32%;">
                             <li class="nav-item active">
-                                <a class="nav-link ml-5" href="/users/art" style="color: white;">Art <span
+                                <a class="nav-link ml-5" href="/art" style="color: white;">Art <span
                                         class="sr-only">(current)</span></a>
 
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link ml-5" href="/users/tech" style="color: white;">Tech <span
+                                <a class="nav-link ml-5" href="/tech" style="color: white;">Tech <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link ml-5" href="/users/fashion" style="color: white;">Fashion <span
+                                <a class="nav-link ml-5" href="/fashion" style="color: white;">Fashion <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link ml-5" href="/users/craft" style="color: white;">Craft <span
+                                <a class="nav-link ml-5" href="/craft" style="color: white;">Craft <span
                                         class="sr-only">(current)</span></a>
                             </li>
 
@@ -101,7 +101,7 @@
                     <!-- Section: Condition -->
                     <section filter="condition" class="mb-4">
                         <h6 class="font-weight-bold mb-3">Condition</h6>
-                        <form action="/users/filter" method="post">
+                        <form action="/filter" method="post">
                             <div class="form-check pl-0 mb-3">
                                 <input type="radio" name="conditions" value="new"
                                     class="filter-option form-check-input filled-in" condition="new" id="new" />
@@ -221,7 +221,7 @@
         {{#each data}}
 
         <div class=" col-md-4 ">
-            <a href="/users/items/{{this._id}}">
+            <a href="/items/{{this._id}}">
                 <div class="card" style="width: 18rem;height: 20rem;border: none;border-radius: 5%;">
                    
                     <img class="card-img-top" src="/images/{{this.img}}" class="img-fluid" width="75px" height="200px"
@@ -231,7 +231,7 @@
                     <div class="card-body">
                         <p class="card-title">{{this.discription}}</p>
 
-                        <a href="/users/items/{{this._id}}" class="btn btn-primary">${{this.price}}</a>
+                        <a href="/items/{{this._id}}" class="btn btn-primary">${{this.price}}</a>
 
 
 

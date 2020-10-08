@@ -1,6 +1,6 @@
 {{#if isLogged}}
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-	<a class="navbar-brand" href="/users/landingpage">Company</a>
+	<a class="navbar-brand" href="/">Company</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -9,7 +9,7 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/rules">Start project <span class="sr-only">(current)</span></a>
 			</li>
 
 
@@ -17,7 +17,7 @@
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
 
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/logout"
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/logout"
 					style="color: black;">logout</a></button>
 		</form>
 	</div>
@@ -26,7 +26,7 @@
 {{else}}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-	<a class="navbar-brand" href="/users/landingpage">Company</a>
+	<a class="navbar-brand" href="/">Company</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -35,16 +35,16 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="/users/rules">Start project <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/rules">Start project <span class="sr-only">(current)</span></a>
 			</li>
 
 
 
 		</ul>
 		<form class="form-inline my-2 my-lg-0">
-			<a class="nav-link nav-item active " id="login-tag" href="/users/login">login<span
+			<a class="nav-link nav-item active " id="login-tag" href="/login">login<span
 					class="sr-only">(current)</span></a>
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/users/signup"
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/signup"
 					style="color: black;">SignUp</a></button>
 		</form>
 	</div>
@@ -55,7 +55,7 @@
 
 <div class="row">
 	<div class="col-md-12 ">
-		<form action="/users/project_upload" method="post">
+		<form action="/project_upload" method="post">
 			<h3 class="mt-5" style="margin-left: 35%;">First, let’s get you set up.</h3>
 			<p
 				style="margin-left: 35%;  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">

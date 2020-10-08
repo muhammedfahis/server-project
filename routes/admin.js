@@ -57,7 +57,7 @@ const Admin = {
 
 const checkAdmin = (req, res, next) => {
   if (!req.session.username) {
-    res.redirect('/login');
+    res.redirect('/admin/login');
   } else {
     next();
   }
@@ -65,7 +65,7 @@ const checkAdmin = (req, res, next) => {
 
 const directDashboard = (req, res, next) => {
   if (req.session.username) {
-    res.redirect('/dashboard');
+    res.redirect('/admin/dashboard');
   }
   next();
 }
@@ -79,7 +79,7 @@ router.get('/login', directDashboard, (req, res) => {
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie('adminCookie')
-  res.redirect('/login')
+  res.redirect('/admin/login')
 });
 
 router.get('/dashboard', checkAdmin, (req, res) => {
@@ -124,7 +124,7 @@ router.post('/login', (req, res) => {
   if (username === Admin.username && password === Admin.password) {
     req.session.username = username;
 
-    res.redirect('/dashboard');
+    res.redirect('/admin/dashboard');
   } else {
     res.render('admin_login', { msg: 'invalid username or password' });
   }
@@ -160,7 +160,7 @@ router.post('/edit_upload', (req, res) => {
           }
         }, (err) => {
           if (err) throw err;
-          res.redirect('/dashboard');
+          res.redirect('/admin/dashboard');
         })
     }
   })
@@ -169,14 +169,14 @@ router.post('/edit_upload', (req, res) => {
 router.post('/delete_project', (req, res) => {
   Product.deleteOne({ _id: req.body._id }, (err) => {
     if (err) throw err;
-    res.redirect('/dashboard');
+    res.redirect('/admin/dashboard');
   })
 });
 
 router.post('/block_user', (req, res) => {
   User.updateOne({ _id: req.body.id }, { $set: { status: false } }, (err) => {
     if (err) throw err;
-    res.redirect('/getusers');
+    res.redirect('/admin/getusers');
 
   });
 });
@@ -184,7 +184,7 @@ router.post('/block_user', (req, res) => {
 router.post('/unblock_user', (req, res) => {
   User.updateOne({ _id: req.body.id }, { $set: { status: true } }, (err) => {
     if (err) throw err;
-    res.redirect('/getusers');
+    res.redirect('/admin/getusers');
   });
 });
 
@@ -205,13 +205,11 @@ router.post('/save_edit', (req,res) => {
     }
   },(err) => {
     if (err) throw err;
-    res.redirect('/getusers');
+    res.redirect('/admin/getusers');
   })
 });
 
-router.post('/orders',(req,res)=>{
 
-})
 
 
 module.exports = router;

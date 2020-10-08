@@ -89,7 +89,7 @@ router.use(
 
 const userLoginChecker = (req, res, next) => {
   if (!req.session.email) {
-    res.redirect("/users/login");
+    res.redirect("/login");
   } else {
     next();
   }
@@ -97,7 +97,7 @@ const userLoginChecker = (req, res, next) => {
 
 const DirectToDashboard = (req, res, next) => {
   if (req.session.email) {
-    res.redirect("/users/landingpage");
+    res.redirect("/");
   } else {
     next();
   }
@@ -124,7 +124,7 @@ router.get("/confirm_password", (req, res) => {
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.clearCookie("userCookie");
-  res.redirect("/users/landingpage");
+  res.redirect("/");
 });
 
 // category
@@ -239,7 +239,7 @@ router.get("/rules", userLoginChecker, (req, res) => {
 
 // landingpage
 
-router.get("/landingpage", (req, res) => {
+router.get("/", (req, res) => {
   Product.find({}).exec((err, data) => {
     if (err) throw err;
     var isLogged;
@@ -371,14 +371,14 @@ router.get("/myproject", (req, res) => {
 });
 // view the item from the product page
 
-router.get("/item/:id", (req, res) => {
-  const id = req.params.id;
-  Product.find({ _id: id }).exec((err, data) => {
-    if (err) throw err;
+// router.get("/item/:id", (req, res) => {
+//   const id = req.params.id;
+//   Product.find({ _id: id }).exec((err, data) => {
+//     if (err) throw err;
 
-    res.render("myprojectview", { data: data, style: "product_page.css" });
-  });
-});
+//     res.render("myprojectview", { data: data, style: "product_page.css" });
+//   });
+// });
 
 //my orders page
 
@@ -474,7 +474,7 @@ router.post("/signup", (req, res) => {
           console.log(error);
         });
 
-      res.redirect("/users/verify_otp");
+      res.redirect("/verify_otp");
     }
   });
 });
@@ -489,7 +489,7 @@ router.post("/login", (req, res) => {
         var isLogged;
         if (data.status === true) {
           req.session.email = email;
-          res.redirect("/users/landingpage");
+          res.redirect("/");
         } else {
           res.render("login", {
             msg: "you have been blocked",
@@ -526,7 +526,7 @@ router.post("/confirm_password", (req, res) => {
         if (err) throw err;
       }
     );
-    res.redirect("/users/login");
+    res.redirect("/login");
   }
 });
 
@@ -552,7 +552,7 @@ router.post("/verify_otp", (req, res) => {
     .then(function (response) {
       if (response.data.status === "success") {
         newUser.save();
-        res.redirect("/users/login");
+        res.redirect("/login");
       } else {
         res.render("otp_verification", { err: "invalid otp" });
       }
@@ -584,7 +584,7 @@ router.get("/resend_otp", (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-  res.redirect("/users/verify_otp");
+  res.redirect("/verify_otp");
 });
 
 router.post("/otp_login", (req, res) => {
@@ -698,7 +698,7 @@ router.get("/resend_login_otp", (req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-  res.redirect("/users/verify_otp");
+  res.redirect("/verify_otp");
 });
 
 // product upload
@@ -781,7 +781,7 @@ router.post("/confirm_project", (req, res) => {
   });
   console.log(newProduct)
   confirmProduct.save();
-  res.redirect("/users/landingpage");
+  res.redirect("/");
 }else{
   const confirmProduct = new Product({
     category: newProduct.category,
@@ -798,7 +798,7 @@ router.post("/confirm_project", (req, res) => {
   });
   console.log(newProduct)
   confirmProduct.save();
-  res.redirect("/users/landingpage");
+  res.redirect("/");
 }
 });
 
@@ -1037,7 +1037,7 @@ router.post("/filter", (req, res) => {
       }
     });
   } else {
-    res.redirect("/users/landingpage");
+    res.redirect("/");
   }
 });
 
@@ -1047,7 +1047,7 @@ router.post("/dlt_project", (req, res) => {
 
   Product.findOneAndDelete({ _id: id }, (err) => {
     if (err) throw err;
-    res.redirect("/users/myproject");
+    res.redirect("/myproject");
   });
 });
 
@@ -1083,7 +1083,7 @@ router.post("/edt_upload", (req, res) => {
       }
     );
   });
-  res.redirect("/users/myproject");
+  res.redirect("/myproject");
 });
 
 //  paypal complete works
@@ -1098,7 +1098,7 @@ router.post("/address_page", (req, res) => {
       res.render("addresspage", { data: data });
     });
   } else {
-    res.redirect("/users/login");
+    res.redirect("/login");
   }
 });
 //  reading users address when preorder the item
@@ -1134,8 +1134,8 @@ router.post("/redirect_payment", (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:3000/users/success",
-      cancel_url: "http://localhost:3000/users/cancel",
+      return_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
     },
     transactions: [
       {
@@ -1214,7 +1214,7 @@ router.get("/success", (req, res) => {
         { $set: { paymentId: paymentId, status: true, type: "pre-order" } },
         (err) => {
           if (err) throw err;
-          res.redirect("/users/myorders");
+          res.redirect("/myorders");
         }
       );
     }
@@ -1246,8 +1246,8 @@ router.post("/back_project", (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:3000/users/back_success",
-      cancel_url: "http://localhost:3000/users/back_cancel",
+      return_url: "http://localhost:3000/back_success",
+      cancel_url: "http://localhost:3000/back_cancel",
     },
     transactions: [
       {
@@ -1326,7 +1326,7 @@ router.get("/back_success", async (req, res) => {
       newBack.save();
     }
   });
-  res.redirect("/users/landingpage");
+  res.redirect("/");
 });
 
 // backup cancel router
