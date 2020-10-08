@@ -220,7 +220,7 @@ router.get("/start_project", (req, res) => {
 //  render confirm project page
 
 router.get("/confrim_page", (req, res) => {
-  res.render("confirmaton_page", { style: "signup.css" });
+  res.render("confirmation_page", { style: "signup.css" });
 });
 
 router.get("/rules", userLoginChecker, (req, res) => {
@@ -735,25 +735,29 @@ router.post("/project_upload", (req, res) => {
 
 router.post("/upload_video", (req, res) => {
 
-  if(req.body.image){
+  
   upload(req, res, (err) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(req.file.path);
+     
 
       var filename = req.file.filename;
       newVideo = ({
         video: filename,
       });
 
-      res.render("confirmation_page", { video: newVideo, project: newProduct });
+      res.render("confirmation_page", {video: newVideo, project: newProduct });
     }
   });
-}else{
-  res.render('confirmation_page',{project:newProduct});
-}
+ 
 });
+
+// skip video upload
+
+router.post('/skip_video',(req,res)=>{
+  res.render('confirmation_page',{project: newProduct})
+})
 
 
 //  confirmation of adding project
@@ -836,6 +840,8 @@ router.post("/comments", (req, res) => {
     }
   );
 });
+
+
 
 // filter
 
@@ -1208,7 +1214,7 @@ router.get("/success", (req, res) => {
         { $set: { paymentId: paymentId, status: true, type: "pre-order" } },
         (err) => {
           if (err) throw err;
-          res.redirect("/users/landingpage");
+          res.redirect("/users/myorders");
         }
       );
     }

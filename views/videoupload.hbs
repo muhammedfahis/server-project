@@ -69,9 +69,16 @@
 
 				<input type="file" class="form-control-file" name="image" id="exampleFormControlFile1" >
 			</div>
+			
             <input type="hidden" name="discription" value="{{name}}">
            <button type="submit" class="btn btn-success mt-5" style="margin-left: 42%;">Upload</button>
+		
             </form>
+			<form action="/users/skip_video" method="post">
+			 <input type="hidden" name="discription" value="{{name}}">
+			<button type="submit" class="btn btn-warning " style="width: 100%;margin-top: 5rem;" >Skip</button>
+			</form>
+			
         </div>
     </div>
 </div>

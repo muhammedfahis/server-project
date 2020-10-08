@@ -445,7 +445,9 @@
 
 
 			<main class="page">
-
+				<div class="alert alert-primary" id="image-warning" style="display: none;" role="alert">
+					choose an image
+				</div>
 				<!-- input file -->
 				<div class="box">
 					<input type="file" id="file-input" name="image" accept="image/png, image/jpeg">>
@@ -522,7 +524,7 @@
 <script>
 
 
-	$( function () {
+	$(function () {
 
 		var showInfo = function (message) {
 			$('#progress').hide();
@@ -533,7 +535,7 @@
 		$("#btn").on('mouseover', () => {
 			setImageData();
 		});
-	
+
 
 		$('#btn').on('click', function (evt) {
 			evt.preventDefault();
@@ -543,12 +545,12 @@
 				imageWaring.innerText = "Select an image";
 				imageWaring.style.display = "block"
 			} else {
-				
+
 				$('#progress').show();
 				var formData = new FormData();
 				var file = document.getElementById('file-input').files[0];
 				formData.append('file-input', file);
-				
+
 				var xhr = new XMLHttpRequest();
 
 				xhr.open('post', '/users/project_upload', true);
@@ -557,14 +559,27 @@
 					if (e.lengthComputable) {
 						var percentage = (e.loaded / e.total) * 100;
 						$('#progressBar').css('width', percentage + '%');
-						 
-					 
-						
+						console.log(percentage);
+						if(percentage === 100){
+							showMessage();
+						}
 					}
 					
 				
-				};
-			
+					};
+				
+				
+				function showMessage(){
+				
+				var message =document.getElementById('image-warning');
+				message.innerText='image uploaded';
+				message.style.display="block";
+
+				}	
+
+
+				
+
 
 
 
@@ -574,16 +589,16 @@
 
 				xhr.send(formData);
 			}
-			
+
 
 		});
-		
 
-		
+
+
 
 	});
 
-	 
+
 	let result = document.querySelector('.result'),
 		img_result = document.querySelector('.img-result'),
 		img_w = document.querySelector('.img-w'),
