@@ -2,13 +2,48 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var mongoose=require('mongoose');
-var upload=require('express-fileupload');
-var session= require('express-session');
-var bodyParser= require('body-parser');
-
 var router =express.Router();
+const session = require("express-session");
+
+var MongoDBStore = require("connect-mongodb-session")(session);
+var store = new MongoDBStore({
+  uri: "mongodb://localhost:27017/connect_mongodb_session_test",
+  collection: "mySessions",
+});
+store.on("error", function (error) {
+  console.log(error);
+});
+
+
+router.use(session({
+  
+  secret: 'ok',
+  name: 'adminCookie',
+  saveUninitialized: false,
+  store: store,
+  resave: false,
+
+  cookie: {
+    path:'/admin',
+    maxAge: 60 * 1000 * 60 * 60 * 24 * 30
+  }
+}));
+
+router.use(session({
+    
+  secret: "ok",
+  name: "userCookie",
+  store: store,
+  saveUninitialized: false,
+  resave: false,
+
+  cookie: {
+    path:'/',
+    maxAge: 60 * 1000 * 60 * 60 * 24 * 30,
+  },
+})
+);
 
 
 
