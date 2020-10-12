@@ -8,7 +8,7 @@ const session = require("express-session");
 
 var MongoDBStore = require("connect-mongodb-session")(session);
 var store = new MongoDBStore({
-  uri: "mongodb://localhost:27017/connect_mongodb_session_test",
+  uri: "mongodb+srv://Muhammedfahis:2585832000v@cluster0.uk8po.mongodb.net/mydb?retryWrites=true&w=majority/connect_mongodb_session_test",
   collection: "mySessions",
 });
 store.on("error", function (error) {
@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect("mongodb://localhost/mydb", {
+mongoose.connect("mongodb+srv://Muhammedfahis:2585832000v@cluster0.uk8po.mongodb.net/mydb?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
