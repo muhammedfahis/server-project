@@ -8,7 +8,7 @@ const session = require("express-session");
 
 var MongoDBStore = require("connect-mongodb-session")(session);
 var store = new MongoDBStore({
-  uri: "mongodb+srv://Muhammedfahis:2585832000v@cluster0.uk8po.mongodb.net/mydb?retryWrites=true&w=majority/connect_mongodb_session_test",
+  uri: "mongodb+srv://Muhammedfahis:2585832000v@cluster0.uk8po.mongodb.net/mydb?retryWrites=true&w=majority",
   collection: "mySessions",
 });
 store.on("error", function (error) {
