@@ -163,8 +163,8 @@ function orderController() {
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: "http://localhost:3000/back_success",
-          cancel_url: "http://localhost:3000/back_cancel",
+          return_url: "ec2-18-217-42-151.us-east-2.compute.amazonaws.com/back_success",
+          cancel_url: "ec2-18-217-42-151.us-east-2.compute.amazonaws.com/back_cancel",
         },
         transactions: [
           {
