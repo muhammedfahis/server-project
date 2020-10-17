@@ -98,6 +98,7 @@ function projectController() {
           res.render("confirmation_page", {
             video: newVideo,
             project: newProduct,
+            style:'signup.css'
           });
         }
       });
