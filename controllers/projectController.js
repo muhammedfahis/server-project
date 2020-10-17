@@ -105,7 +105,7 @@ function projectController() {
     },
 
     doSkipVideo(req, res) {
-      res.render("confirmation_page", { project: newProduct });
+      res.render("confirmation_page", { project: newProduct,style:'signup.css' });
     },
     doConfirmProject(req, res) {
       if (newVideo) {
